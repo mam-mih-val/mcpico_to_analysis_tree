@@ -11,10 +11,10 @@ void McPicoChain::Init() {
   chain_->SetBranchAddress( "bimp", &impact_parameter_ );
   chain_->SetBranchAddress( "phi2", &reaction_plain_ );
   chain_->SetBranchAddress( "nh", &n_particles_ );
-  chain_->SetBranchAddress( "momx", &px_ );
-  chain_->SetBranchAddress( "momy", &py_ );
-  chain_->SetBranchAddress( "momz", &pz_ );
-  chain_->SetBranchAddress( "pdg", &pdg_code_ );
+  chain_->SetBranchAddress( "momx", px_ );
+  chain_->SetBranchAddress( "momy", py_ );
+  chain_->SetBranchAddress( "momz", pz_ );
+  chain_->SetBranchAddress( "pdg", pdg_code_ );
 }
 void McPicoChain::AddFiles(const std::string& file_list) {
   if( !chain_ )
@@ -30,9 +30,9 @@ void McPicoChain::AddFiles(const std::string& file_list) {
 }
 bool McPicoChain::NextEvent() {
   assert(chain_);
+  current_event_++;
   if(current_event_ >= chain_->GetEntries())
     return false;
   chain_->GetEntry(current_event_);
-  current_event_++;
   return true;
 }

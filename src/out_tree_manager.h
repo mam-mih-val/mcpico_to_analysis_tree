@@ -34,8 +34,8 @@ private:
   TFile* out_file_;
   TTree* out_tree_;
 
-  AnalysisTree::DataHeader* data_header_{nullptr};
-  AnalysisTree::Configuration* configuration_{nullptr};
+  AnalysisTree::DataHeader data_header_;
+  AnalysisTree::Configuration configuration_;
 
   AnalysisTree::BranchConfig event_header_config_;
   AnalysisTree::BranchConfig particles_config_;

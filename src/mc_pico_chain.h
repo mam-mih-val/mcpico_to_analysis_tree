@@ -11,7 +11,10 @@
 class McPicoChain {
 public:
   McPicoChain() = default;
-  explicit McPicoChain(const std::string& input_file_list){ this->Init(); this->AddFiles(input_file_list); };
+  explicit McPicoChain(const std::string& input_file_list){
+    this->Init();
+    this->AddFiles(input_file_list);
+  };
   ~McPicoChain() = default;
   void Init();
   void AddFiles(const std::string& file_list);
@@ -25,14 +28,14 @@ public:
 
 private:
   TChain* chain_;
-  long long current_event_ =0;
+  long long current_event_=-1;
   float impact_parameter_;
   float reaction_plain_;
   int n_particles_;
-  float* px_;
-  float* py_;
-  float* pz_;
-  int* pdg_code_;
+  float px_[389];
+  float py_[389];
+  float pz_[389];
+  int pdg_code_[389];
 };
 
 #endif // MCPICO2AT_SRC_MC_PICO_CHAIN_H_
