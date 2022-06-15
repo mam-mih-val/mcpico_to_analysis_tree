@@ -19,6 +19,7 @@ source /scratch1/mmamaev/fairsoft/install/bin/thisroot.sh
 echo
 date
 echo "Running conversion ..."
+echo "/scratch1/mmamaev/mcpico_to_analysis_tree/build/convert -i $filelist -t atree -o output.root -s $colliding_system -e $collision_energy --sample-reaction-plane --boost-to-lab"
 /scratch1/mmamaev/mcpico_to_analysis_tree/build/convert \
                                                         -i $filelist \
                                                         -t atree \
