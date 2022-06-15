@@ -20,6 +20,8 @@ OutTreeManager::OutTreeManager(const std::string &out_file_name,
   event_header_->Init( event_header_config_ );
 
   particles_config_ = AnalysisTree::BranchConfig( "particles", AnalysisTree::DetType::kParticle );
+  particles_config_.AddField<float>("y_cm", "rapidity in center-of-mass system");
+  particles_config_.AddField<float>("Ekin", "Kinetic energy of a particle ");
   configuration_.AddBranchConfig(particles_config_);
   particles_ = new AnalysisTree::Particles( particles_config_.GetId() );;
 

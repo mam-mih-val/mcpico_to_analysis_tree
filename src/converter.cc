@@ -15,6 +15,13 @@ void Converter::Run() {
   auto out_particles = out_tree_.GetParticles();
   auto out_particles_config = out_tree_.GetParticlesConfig();
 
+  auto b_id = out_event_header_config.GetFieldId( "b" );
+  auto psi_rp_id = out_event_header_config.GetFieldId( "psi_rp" );
+  auto M_id = out_event_header_config.GetFieldId( "M");
+
+  auto y_cm_id = out_particles_config.GetFieldId("y_cm");
+  auto Ekin_id = out_particles_config.GetFieldId("Ekin");
+
   std::random_device dev;
   std::mt19937 rng(dev());
   std::uniform_real_distribution<> dist(-M_PI, M_PI);
@@ -28,9 +35,10 @@ void Converter::Run() {
     auto sampled_reaction_plane = float( dist( rng ) );
     auto n_part = in_chain_.GetNParticles();
 
-    out_event_header->SetField( b, out_event_header_config.GetFieldId( "b" ) );
-    out_event_header->SetField(sample_reaction_plane_ ? sampled_reaction_plane : model_reaction_plane, out_event_header_config.GetFieldId( "psi_rp" ) );
-    out_event_header->SetField( n_part, out_event_header_config.GetFieldId( "M" ) );
+    out_event_header->SetField( b, b_id );
+    out_event_header->SetField(sample_reaction_plane_ ? sampled_reaction_plane : model_reaction_plane, psi_rp_id );
+    out_event_header->SetField( n_part, M_id );
+
     for( int i=0; i<n_part; ++i ){
       auto [px, py, pz] = in_chain_.GetMomentum(i);
       if( sample_reaction_plane_ ){
@@ -43,13 +51,20 @@ void Converter::Run() {
       }
       auto pid = in_chain_.GetPdgCode(i);
       auto mass = TDatabasePDG::Instance()->GetParticle(pid)->Mass();
+      auto E = sqrt( px*px + py*py + pz*pz + mass*mass );
+      auto y_cm = 0.5*( log( E + pz ) - log(E - pz) );
       if( boost_to_lab_ ){
-        pz = gama_cm_*( pz + beta_cm_*sqrt( px*px + py*py + pz*pz + mass*mass ) );
+        pz = gama_cm_*( pz + beta_cm_*E );
       }
+      E = sqrt( px*px + py*py + pz*pz + mass*mass );
+      auto Ekin = E - mass;
       auto& particle = out_particles->AddChannel(out_particles_config);
       particle.SetMomentum( float(px), float(py), float(pz) );
       particle.SetPid( pid );
       particle.SetMass( float(mass) );
+
+      particle.SetField( float(y_cm), y_cm_id );
+      particle.SetField( float(Ekin), Ekin_id );
     }
     out_tree_.Fill();
     out_tree_.CheckIfNewFile();
