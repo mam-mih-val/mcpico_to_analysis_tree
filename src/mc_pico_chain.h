@@ -35,10 +35,10 @@ private:
   float impact_parameter_;
   float reaction_plain_;
   int n_particles_;
-  float px_[389];
-  float py_[389];
-  float pz_[389];
-  int pdg_code_[389];
+  float px_[1000];
+  float py_[1000];
+  float pz_[1000];
+  int pdg_code_[1000];
 };
 
 #endif // MCPICO2AT_SRC_MC_PICO_CHAIN_H_
