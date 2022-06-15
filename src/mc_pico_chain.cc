@@ -22,10 +22,14 @@ void McPicoChain::AddFiles(const std::string& file_list) {
   std::cout << "Reading file from filelist " << file_list << std::endl;
   std::ifstream infile(file_list);
   std::string input_root_file;
-  assert( infile.is_open() );
+  if( !infile.is_open() ){
+    throw std::runtime_error( "Filelist "+file_list+" cannot be open" );
+  }
   int i=0;
   while( infile >> input_root_file ){
-    chain_->AddFile( input_root_file.c_str() );
+    auto success = chain_->AddFile( input_root_file.c_str() );
+    if( success != 1 )
+      throw std::runtime_error( "File "+ input_root_file +" cannot be open for reading" );
     std::cout << i << ". " << input_root_file << " added\n";
     i++;
   }
