@@ -41,7 +41,7 @@ int main(int argv, char** argc){
   sample_reaction_plane = vm.count("sample-reaction-plane");
   boost_to_lab = vm.count("boost-to-lab");
 
-  auto converter = Converter( "/home/mikhail/mcpico.list", "out.root", "atree" );
+  auto converter = Converter( input_list, output_file, output_tree );
   converter.SampleReactionPlane(sample_reaction_plane);
   converter.BoostToLab(boost_to_lab);
   converter.SetCollidingSystem( system, energy );
