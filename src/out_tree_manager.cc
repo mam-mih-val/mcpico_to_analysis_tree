@@ -28,7 +28,6 @@ OutTreeManager::OutTreeManager(const std::string &out_file_name,
 
   out_file_->cd();
   configuration_.Write("Configuration");
-  data_header_.Write("DataHeader");
 }
 
 OutTreeManager::~OutTreeManager() {
@@ -38,4 +37,13 @@ OutTreeManager::~OutTreeManager() {
 
   delete event_header_;
   delete particles_;
+}
+void OutTreeManager::WriteDataHeader(const std::string &colliding_system,
+                                     double energy) {
+  data_header_.SetSystem(colliding_system);
+  const double M=0.940;
+  auto p_mom = energy * sqrt( energy*energy / ( 4*M*M ) - 1 );
+  data_header_.SetBeamMomentum(p_mom);
+  data_header_.Write("DataHeader");
+
 }

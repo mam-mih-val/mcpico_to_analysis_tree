@@ -23,7 +23,10 @@ public:
   [[nodiscard]] float GetImpactParameter() const { return impact_parameter_; }
   [[nodiscard]] float GetReactionPlain() const { return reaction_plain_; }
   [[nodiscard]] int GetNParticles() const { return n_particles_; }
-  TVector3 GetMomentum(int idx){ return { px_[idx], py_[idx], pz_[idx] }; };
+  std::tuple<float, float, float>  GetMomentum(int idx){ return { px_[idx], py_[idx], pz_[idx] }; };
+  float GetPx( int idx ){return px_[idx];}
+  float GetPy( int idx ){return py_[idx];}
+  float GetPz( int idx ){return pz_[idx];}
   int GetPdgCode(int idx){ return pdg_code_[idx]; };
 
 private:

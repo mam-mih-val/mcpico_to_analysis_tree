@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.15)
 project(mcpico2at)
 
 find_package(ROOT REQUIRED COMPONENTS RIO Tree)
+find_package(Boost REQUIRED COMPONENTS program_options)
 include(${ROOT_USE_FILE})
 include(FetchContent)
 
@@ -15,4 +16,4 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(AnalysisTree)
 
 add_executable(convert src/convert.cc src/mc_pico_chain.cc src/out_tree_manager.cc src/converter.cc)
-target_link_libraries(convert ROOT::RIO ROOT::Tree AnalysisTreeBase AnalysisTreeInfra)
+target_link_libraries(convert ROOT::RIO ROOT::Tree AnalysisTreeBase AnalysisTreeInfra Boost::program_options)

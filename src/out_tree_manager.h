@@ -15,7 +15,8 @@
 
 class OutTreeManager {
 public:
-  OutTreeManager(const std::string& out_file_name, const std::string& out_tree_name);
+  OutTreeManager(const std::string& out_file_name,
+                 const std::string& out_tree_name);
   virtual ~OutTreeManager();
   void Fill(){
     out_file_->cd();
@@ -29,6 +30,7 @@ public:
   }
   [[nodiscard]] AnalysisTree::EventHeader *GetEventHeader() const { return event_header_; }
   [[nodiscard]] AnalysisTree::Particles *GetParticles() const { return particles_; }
+  void WriteDataHeader(const std::string& colliding_system, double energy);
 
 private:
   TFile* out_file_;
