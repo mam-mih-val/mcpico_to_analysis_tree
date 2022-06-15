@@ -21,6 +21,7 @@ void McPicoChain::AddFiles(const std::string& file_list) {
     this->Init();
   std::ifstream infile(file_list);
   std::string input_root_file;
+  assert( infile.is_open() );
   int i=0;
   while( infile >> input_root_file ){
     chain_->AddFile( input_root_file.c_str() );

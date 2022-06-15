@@ -19,6 +19,7 @@ void Converter::Run() {
   std::mt19937 rng(dev());
   std::uniform_real_distribution<> dist(-M_PI, M_PI);
 
+  int n_events=0;
   while( in_chain_.NextEvent() ){
     out_particles->ClearChannels();
 
@@ -52,5 +53,7 @@ void Converter::Run() {
     }
     out_tree_.Fill();
     out_tree_.CheckIfNewFile();
+    n_events++;
   }
+  std::cout << n_events << " events were converted to AnalysisTree" << std::endl;
 }
