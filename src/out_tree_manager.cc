@@ -47,3 +47,12 @@ void OutTreeManager::WriteDataHeader(const std::string &colliding_system,
   data_header_.Write("DataHeader");
 
 }
+void OutTreeManager::CheckIfNewFile() {
+  auto* file = out_tree_->GetCurrentFile();
+  if( file != out_file_ ) {
+    out_file_ = file;
+    out_file_->cd();
+    configuration_.Write("Configuration");
+    data_header_.Write("DataHeader");
+  }
+}

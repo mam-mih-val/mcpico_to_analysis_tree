@@ -51,5 +51,6 @@ void Converter::Run() {
       particle.SetMass( float(mass) );
     }
     out_tree_.Fill();
+    out_tree_.CheckIfNewFile();
   }
 }

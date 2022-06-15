@@ -30,6 +30,7 @@ public:
   }
   [[nodiscard]] AnalysisTree::EventHeader *GetEventHeader() const { return event_header_; }
   [[nodiscard]] AnalysisTree::Particles *GetParticles() const { return particles_; }
+  void CheckIfNewFile();
   void WriteDataHeader(const std::string& colliding_system, double energy);
 
 private:
