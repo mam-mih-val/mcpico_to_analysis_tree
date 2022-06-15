@@ -19,6 +19,7 @@ void McPicoChain::Init() {
 void McPicoChain::AddFiles(const std::string& file_list) {
   if( !chain_ )
     this->Init();
+  std::cout << "Reading file from filelist " << file_list << std::endl;
   std::ifstream infile(file_list);
   std::string input_root_file;
   assert( infile.is_open() );
