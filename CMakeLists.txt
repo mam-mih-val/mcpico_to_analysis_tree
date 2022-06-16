@@ -15,5 +15,35 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(AnalysisTree)
 
-add_executable(convert src/convert.cc src/mc_pico_chain.cc src/out_tree_manager.cc src/converter.cc)
-target_link_libraries(convert ROOT::RIO ROOT::Tree AnalysisTreeBase AnalysisTreeInfra Boost::program_options)
+include_directories(
+        ${CMAKE_SOURCE_DIR}
+        ${ROOT_INCLUDE_DIRS}
+)
+set(SOURCES
+        src/unigen_format/UEvent.cxx
+        src/unigen_format/UParticle.cxx
+        src/unigen_format/URun.cxx
+        )
+
+set(HEADERS
+        src/unigen_format/UEvent.h
+        src/unigen_format/UParticle.h
+        src/unigen_format/URun.h
+        )
+
+set(PCM_FILE_NAME libUnigen)
+ROOT_GENERATE_DICTIONARY(G__Unigen ${HEADERS}
+        LINKDEF src/unigen_format/UniGenLinkDef.h
+        OPTIONS
+        -I ${CMAKE_SOURCE_DIR})
+add_library(Unigen SHARED ${SOURCES} G__Unigen.cxx)
+target_link_libraries(Unigen PUBLIC ROOT::RIO ROOT::Core ROOT::Tree)
+
+add_executable(convert
+        src/convert.cc
+        src/converter.cc
+        src/input_chain.cc
+        src/mc_pico_chain.cc
+        src/unigen_chain.cc
+        src/out_tree_manager.cc)
+target_link_libraries(convert ROOT::RIO ROOT::Tree AnalysisTreeBase AnalysisTreeInfra Boost::program_options Unigen)

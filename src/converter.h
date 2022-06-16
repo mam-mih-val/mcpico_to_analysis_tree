@@ -5,15 +5,18 @@
 #ifndef MCPICO2AT_SRC_CONVERTER_H_
 #define MCPICO2AT_SRC_CONVERTER_H_
 
+#include "input_chain.h"
+#include "unigen_chain.h"
 #include "mc_pico_chain.h"
 #include "out_tree_manager.h"
 
 class Converter {
 public:
-  Converter( const std::string& input_file_list, const std::string& out_file_name, const std::string& out_tree_name );
+  Converter(const std::string& out_file_name, const std::string& out_tree_name);
   ~Converter() = default;
   void SampleReactionPlane(bool sample_reaction_plane=true) { sample_reaction_plane_ = sample_reaction_plane; }
   void BoostToLab(bool boost_to_lab=true) { boost_to_lab_ = boost_to_lab; }
+  void SetInChain(InputChain *in_chain) { in_chain_ = in_chain; }
   void SetCollidingSystem(const std::string &colliding_system, double energy) {
     colliding_system_ = colliding_system;
     beta_cm_ = sqrt( 1 - 4*0.938*0.938 / energy / energy);
@@ -27,7 +30,7 @@ private:
   std::string colliding_system_;
   double beta_cm_;
   double gama_cm_;
-  McPicoChain in_chain_;
+  InputChain* in_chain_{nullptr};
   OutTreeManager out_tree_;
 };
 
