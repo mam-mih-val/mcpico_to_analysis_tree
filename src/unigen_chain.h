@@ -25,7 +25,7 @@ public:
   }
   std::tuple<float, float, float> GetMomentum(int idx) override {
     auto* p = event_->GetParticle(idx);
-    return {float(p->Px()), float(p->Pz()), float(p->Pz())};
+    return { float(p->Px()), float(p->Py()), float(p->Pz() )};
   }
   float GetPx(int idx) override {
     auto*p = event_->GetParticle(idx);

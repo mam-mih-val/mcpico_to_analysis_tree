@@ -55,7 +55,7 @@ void Converter::Run() {
       if( TDatabasePDG::Instance()->GetParticle(pid) )
         mass = TDatabasePDG::Instance()->GetParticle(pid)->Mass();
       else{
-        int A = pid % 100'000 / 10;
+        int A = (pid % 10'000) / 10;
         mass = 0.931 * A;
       }
       auto E = sqrt( px*px + py*py + pz*pz + mass*mass );
