@@ -13,7 +13,6 @@ int main(int argv, char** argc){
   }
 
   std::string input_list;
-  std::string input_tree;
   std::string output_file;
   std::string output_tree;
   std::string system;
@@ -28,7 +27,6 @@ int main(int argv, char** argc){
       ("help,h", "Help screen")
       ("input,i", po::value<std::string>(&input_list),"Input file list")
       ("output,o", po::value<std::string>(&output_file)->default_value("output.root"),"Name of output file")
-      ("input-tree", po::value<std::string>(&input_tree)->default_value("mctree"),"Name of input tree")
       ("output-tree", po::value<std::string>(&output_tree)->default_value("atree"),"Name of output tree")
       ("system,s", po::value<std::string>(&system)->default_value("Au+Au"),"Collision system")
       ("energy,e", po::value<double>(&energy)->default_value(3.3),"Collision energy per nucleon pair")
@@ -56,9 +54,9 @@ int main(int argv, char** argc){
 
   auto converter = Converter( output_file, output_tree );
   if( is_mcpico )
-    converter.SetInChain( new McPicoChain(input_list, input_tree) );
+    converter.SetInChain( new McPicoChain(input_list, "mctree") );
   if( is_unigen )
-    converter.SetInChain( new UnigenChain(input_list, input_tree) );
+    converter.SetInChain( new UnigenChain(input_list, "events") );
   converter.SampleReactionPlane(sample_reaction_plane);
   converter.BoostToLab(boost_to_lab);
   converter.SetCollidingSystem( system, energy );
