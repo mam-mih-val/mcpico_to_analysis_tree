@@ -29,7 +29,7 @@ echo "/scratch1/mmamaev/mcpico_to_analysis_tree/build/convert -i $filelist -o ou
                                                         -e $collision_energy \
                                                         --sample-reaction-plane \
                                                         --boost-to-lab \
-                                                        --unigen
+                                                        --mcpico
 
 find . -name "output*.root" > list.txt
 echo
