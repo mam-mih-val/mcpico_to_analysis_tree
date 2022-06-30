@@ -74,7 +74,7 @@ void Converter::Run() {
       particle.SetField(float(Ekin), Ekin_id);
       particle.SetField(int(type), type_id);
     }
-    out_event_header->SetField( n_part, multiplicity);
+    out_event_header->SetField( multiplicity, M_id);
 
     out_tree_.Fill();
     out_tree_.CheckIfNewFile();
