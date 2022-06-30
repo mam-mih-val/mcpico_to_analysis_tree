@@ -37,8 +37,7 @@ void Converter::Run() {
 
     out_event_header->SetField( b, b_id );
     out_event_header->SetField(sample_reaction_plane_ ? sampled_reaction_plane : model_reaction_plane, psi_rp_id );
-    out_event_header->SetField( n_part, M_id );
-
+    int multiplicity = 0;
     for( int i=0; i<n_part; ++i ){
       auto [px, py, pz] = in_chain_->GetMomentum(i);
       if( sample_reaction_plane_ ){
@@ -60,6 +59,7 @@ void Converter::Run() {
       }
       auto E = sqrt( px*px + py*py + pz*pz + mass*mass );
       auto y_cm = 0.5*( log( E + pz ) - log(E - pz) );
+      if( -0.6 < y_cm && y_cm < 0.6 ) multiplicity++;
       if( boost_to_lab_ ){
         pz = gama_cm_*( pz + beta_cm_*E );
       }
@@ -74,6 +74,8 @@ void Converter::Run() {
       particle.SetField(float(Ekin), Ekin_id);
       particle.SetField(int(type), type_id);
     }
+    out_event_header->SetField( n_part, multiplicity);
+
     out_tree_.Fill();
     out_tree_.CheckIfNewFile();
     n_events++;
