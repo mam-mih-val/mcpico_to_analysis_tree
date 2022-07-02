@@ -19,28 +19,28 @@ source /scratch1/mmamaev/fairsoft/install/bin/thisroot.sh
 echo
 date
 echo "Running conversion ..."
-echo "/scratch1/mmamaev/mcpico_to_analysis_tree/build/convert -i $filelist -o output.root --output-tree atree -s $colliding_system -e $collision_energy --sample-reaction-plane --boost-to-lab --mcpico"
-
-/scratch1/mmamaev/mcpico_to_analysis_tree/build/convert \
-                                                        -i $filelist \
-                                                        -o output.root \
-                                                        --output-tree atree \
-                                                        -s $colliding_system \
-                                                        -e $collision_energy \
-                                                        --sample-reaction-plane \
-                                                        --boost-to-lab \
-                                                        --unigen
-
-find . -name "output*.root" > list.txt
-echo
-date
-echo "Running correction ..."
-/scratch1/mmamaev/QnAnalysis/build/src/QnAnalysisCorrect/QnAnalysisCorrect \
-                                                                          -i list.txt \
-                                                                          -t atree \
-                                                                          -o correction_out.root \
-                                                                          --yaml-config-file /scratch1/mmamaev/QnAnalysis/setups/bmatn/mc_corrections.yml \
-                                                                          --yaml-config-name BMN
+#echo "/scratch1/mmamaev/mcpico_to_analysis_tree/build/convert -i $filelist -o output.root --output-tree atree -s $colliding_system -e $collision_energy --sample-reaction-plane --boost-to-lab --mcpico"
+#
+#/scratch1/mmamaev/mcpico_to_analysis_tree/build/convert \
+#                                                        -i $filelist \
+#                                                        -o output.root \
+#                                                        --output-tree atree \
+#                                                        -s $colliding_system \
+#                                                        -e $collision_energy \
+#                                                        --sample-reaction-plane \
+#                                                        --boost-to-lab \
+#                                                        --unigen
+#
+#find . -name "output*.root" > list.txt
+#echo
+#date
+#echo "Running correction ..."
+#/scratch1/mmamaev/QnAnalysis/build/src/QnAnalysisCorrect/QnAnalysisCorrect \
+#                                                                          -i list.txt \
+#                                                                          -t atree \
+#                                                                          -o correction_out.root \
+#                                                                          --yaml-config-file /scratch1/mmamaev/QnAnalysis/setups/bmatn/mc_corrections.yml \
+#                                                                          --yaml-config-name BMN
 echo
 date
 echo "Running correlation ..."
