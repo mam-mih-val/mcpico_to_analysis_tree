@@ -32,7 +32,7 @@ echo lists_dir: $lists_dir
 echo n_runs: $n_runs
 echo job_range: $job_range
 
-qsub  -J QnAnalysis \
+sbatch  -J QnAnalysis \
       -t $time \
       -p $partition \
       -a $job_range \
