@@ -9,6 +9,7 @@ data_format=$6
 
 
 time=14:00:00
+partition=cpu
 
 output_dir=${output_dir}/
 lists_dir=${output_dir}/lists/
@@ -31,14 +32,13 @@ echo lists_dir: $lists_dir
 echo n_runs: $n_runs
 echo job_range: $job_range
 
-qsub  -wd $PWD -cwd \
-      -N QnAnalysis \
-      -l h_rt=$time \
-      -l s_rt=$time \
-      -t $job_range \
-      -e ${log_dir}/ \
-      -o ${log_dir}/ \
-      -v output_dir=$output_dir,file_list=$file_list,lists_dir=$lists_dir,colliding_system=$colliding_system,collision_energy=$collision_energy,data_format=$data_format \
-      /scratch1/mmamaev/mcpico_to_analysis_tree/batch/batch_run.sh
+qsub  -J QnAnalysis \
+      -t $time \
+      -p $partition \
+      -a $job_range \
+      -e ${log_dir}/%A_%a.e \
+      -o ${log_dir}/%A_%a.o \
+      --export=output_dir=$output_dir,file_list=$file_list,lists_dir=$lists_dir,colliding_system=$colliding_system,collision_energy=$collision_energy,data_format=$data_format \
+      -- /mnt/pool/nica/7/mam2mih/soft/basov/mcpico_to_analysis_tree/batch/batch_run.sh
 
 echo JOBS HAVE BEEN SUBMITTED!

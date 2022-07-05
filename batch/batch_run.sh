@@ -1,5 +1,4 @@
 #!/bin/bash
-#$ -l h=!(ncx182.jinr.ru|ncx211.jinr.ru)
 
 format='+%Y/%m/%d-%H:%M:%S'
 
@@ -12,16 +11,13 @@ cd $output_dir
 mkdir -p $job_num
 cd $job_num
 
-source /cvmfs/nica.jinr.ru/sw/os/login.sh
-module add GCC-Toolchain/
-
-source /scratch1/mmamaev/fairsoft/install/bin/thisroot.sh
+source /mnt/pool/nica/7/mam2mih/soft/basov/fairsoft/install/bin/thisroot.sh
 echo
 date
 echo "Running conversion ..."
-echo "/scratch1/mmamaev/mcpico_to_analysis_tree/build/convert -i $filelist -o output.root --output-tree atree -s $colliding_system -e $collision_energy --sample-reaction-plane --boost-to-lab --$data_format"
+echo "/mnt/pool/nica/7/mam2mih/soft/basov/mcpico_to_analysis_tree/build/convert -i $filelist -o output.root --output-tree atree -s $colliding_system -e $collision_energy --sample-reaction-plane --boost-to-lab --$data_format"
 
-/scratch1/mmamaev/mcpico_to_analysis_tree/build/convert \
+/mnt/pool/nica/7/mam2mih/soft/basov/mcpico_to_analysis_tree/build/convert \
                                                         -i $filelist \
                                                         -o output.root \
                                                         --output-tree atree \
