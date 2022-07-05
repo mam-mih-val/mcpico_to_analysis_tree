@@ -4,7 +4,7 @@ format='+%Y/%m/%d-%H:%M:%S'
 
 date $format
 
-job_num=$(($SGE_TASK_ID))
+job_num=$(($SLURM_ARRAY_TASK_ID))
 filelist=$lists_dir/$(ls $lists_dir | sed "${job_num}q;d")
 
 cd $output_dir
