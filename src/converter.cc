@@ -15,6 +15,7 @@ void Converter::Run() {
   auto out_particles_config = out_tree_.GetParticlesConfig();
 
   auto b_id = out_event_header_config.GetFieldId( "b" );
+  auto centrality_id = out_event_header_config.GetFieldId( "centrality" );
   auto psi_rp_id = out_event_header_config.GetFieldId( "psi_rp" );
   auto M_id = out_event_header_config.GetFieldId( "M");
 
@@ -26,6 +27,12 @@ void Converter::Run() {
   std::mt19937 rng(dev());
   std::uniform_real_distribution<> dist(-M_PI, M_PI);
 
+  if( colliding_system_ == "Au+Au" ){
+    b_edges_ = { 0, 3.888, 5.67, 6.966, 8.1, 9.072, 10.044, 10.854, 11.664, 12.474, 16.2 };
+  } else if( colliding_system_ == "Xe+Cs" ){
+    b_edges_ = { 0, 3.608, 5.248, 6.56, 7.708, 8.692, 9.512, 10.332, 11.152, 12.3, 16.4 };
+  }
+
   int n_events=0;
   while( in_chain_->NextEvent() ){
     out_particles->ClearChannels();
@@ -35,7 +42,18 @@ void Converter::Run() {
     auto sampled_reaction_plane = float( dist( rng ) );
     auto n_part = in_chain_->GetNParticles();
 
+    auto centrality = -1.0f;
+    int idx = 0;
+    float bin_edge = b_edges_[idx];
+    while( b > bin_edge &&
+           idx < b_edges_.size()-1 ){
+      idx++;
+      bin_edge = b_edges_[idx];
+    }
+    centrality = float( 2*idx - 1 )*10/2.0f;
+
     out_event_header->SetField( b, b_id );
+    out_event_header->SetField( centrality, centrality_id );
     out_event_header->SetField(sample_reaction_plane_ ? sampled_reaction_plane : model_reaction_plane, psi_rp_id );
     int multiplicity = 0;
     for( int i=0; i<n_part; ++i ){
