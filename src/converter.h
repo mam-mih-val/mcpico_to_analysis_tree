@@ -25,6 +25,9 @@ public:
   }
   void Run();
 private:
+  std::vector<int> auau_mult_edges_{ 0, 240, 172, 120, 80, 48, 24, 8, 0 };
+  std::vector<float> auau_b_edges_{ 0, 3.888, 5.67, 6.966, 8.1, 9.072, 10.044, 10.854, 11.664, 12.474, 16.2 };
+  std::vector<float> b_edges_;
   bool sample_reaction_plane_{false};
   bool boost_to_lab_{false};
   std::string colliding_system_;

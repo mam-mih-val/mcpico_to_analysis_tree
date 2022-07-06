@@ -13,6 +13,7 @@ OutTreeManager::OutTreeManager(const std::string &out_file_name,
   event_header_config_ = AnalysisTree::BranchConfig( "event_header", AnalysisTree::DetType::kEventHeader );
   event_header_config_.AddField<float>( "b", "impact parameter" );
   event_header_config_.AddField<float>( "psi_rp", "reaction plane" );
+  event_header_config_.AddField<float>( "centrality", "Impact parameter centrality" );
   event_header_config_.AddField<int>( "M", "number of produced in the collision particles" );
 
   configuration_.AddBranchConfig(event_header_config_);
