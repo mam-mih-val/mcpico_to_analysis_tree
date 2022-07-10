@@ -31,6 +31,8 @@ void Converter::Run() {
     b_edges_ = { 0, 3.888, 5.67, 6.966, 8.1, 9.072, 10.044, 10.854, 11.664, 12.474, 16.2 };
   } else if( colliding_system_ == "Xe+Cs" ){
     b_edges_ = { 0, 3.608, 5.248, 6.56, 7.708, 8.692, 9.512, 10.332, 11.152, 12.3, 16.4 };
+  } else if( colliding_system_ == "Ag+Ag" ){
+    b_edges_ = {  0, 3.12, 4.55, 5.59, 6.5, 7.28, 8.06, 8.71, 9.36, 10.14, 13  };
   }
 
   int n_events=0;
@@ -44,7 +46,7 @@ void Converter::Run() {
 
     auto centrality = -1.0f;
     int idx = 0;
-    float bin_edge = b_edges_[idx];
+    float bin_edge = !b_edges_.empty() ? b_edges_[idx] : 0;
     while( b > bin_edge &&
            idx < b_edges_.size()-1 ){
       idx++;
