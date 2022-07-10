@@ -36,7 +36,7 @@ echo
 date
 echo "Running correction ..."
 
-/scratch1/mmamaev/mcpico_to_analysis_tree/build/convert \
+/scratch1/mmamaev/qnanalysis_check/build/src/pre_process \
                                                         -i list.txt \
                                                         -o out.root \
                                                         -N -1
