@@ -8,8 +8,8 @@ collision_energy=$5
 data_format=$6
 
 
-time=1:00:00
-partition=fast
+time=14:00:00
+partition=cpu
 
 output_dir=${output_dir}/
 lists_dir=${output_dir}/lists/
