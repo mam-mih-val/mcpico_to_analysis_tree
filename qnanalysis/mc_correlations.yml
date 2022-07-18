@@ -1,0 +1,159 @@
+_detectors: &detectors
+# ----- Sim un-vectors -----
+  - name: proton
+    tags: [ sim_un_vector, proton ]
+  - name: pi_neg
+    tags: [ sim_un_vector, pi_neg ]
+# ----- Tracking vectors -----
+  - name: Sp
+    tags: [ track_vector, sp_vector ]
+  - name: Spi
+    tags: [ track_vector, spi_vector ]
+# ----- FHCal vectors -----
+#  - name: F1
+#    tags: [ fhcal_vector, f1_vector ]
+#  - name: F2
+#    tags: [ fhcal_vector, f2_vector ]
+#  - name: F3
+#    tags: [ fhcal_vector, f3_vector ]
+  - name: Fp
+    tags: [ fhcal_vector, fp_vector ]
+  - name: Fn
+    tags: [ fhcal_vector, fn_vector ]
+# ----- True RP vector -----
+  - name: psi_rp
+    tags: [ psi_vector ]
+
+_axes:
+  - &centrality
+    name: event_header_centrality
+    nb: 10
+    lo: 0
+    hi: 100
+
+_components:
+  - &sp1_components [ x1,y1 ]
+  - &sp2_components [ x2,y2 ]
+  - &sp3_components [ x3,y3 ]
+
+_tasks_args:
+
+# ----- Task array for sim un vectors -----
+  - &ta_u1
+    query: { tags: { any-in: [ sim_un_vector ] } }
+    query-list: *detectors
+    components: *sp1_components
+    correction-steps: [ plain ]
+  - &ta_u2
+    query: { tags: { any-in: [ sim_un_vector ] } }
+    query-list: *detectors
+    components: *sp2_components
+    correction-steps: [ plain ]
+  - &ta_proton1
+    query: { tags: { any-in: [ proton ] } }
+    query-list: *detectors
+    components: *sp1_components
+    correction-steps: [ plain ]
+  - &ta_proton2
+    query: { tags: { any-in: [ proton ] } }
+    query-list: *detectors
+    components: *sp2_components
+    correction-steps: [ plain ]
+  - &ta_pi_neg1
+    query: { tags: { any-in: [ pi_neg ] } }
+    query-list: *detectors
+    components: *sp1_components
+    correction-steps: [ plain ]
+  - &ta_pi_neg2
+    query: { tags: { any-in: [ pi_neg ] } }
+    query-list: *detectors
+    components: *sp1_components
+    correction-steps: [ plain ]
+
+# ----- Task array for SP components of FHCal vectors -----
+  - &ta_fhcal
+    query: { tags: { any-in: [ fhcal_vector ] } }
+    query-list: *detectors
+    components: *sp1_components
+    correction-steps: [ plain ]
+  - &ta_f1
+    query: { tags: { any-in: [ f1_vector ] } }
+    query-list: *detectors
+    components: *sp1_components
+    correction-steps: [ plain ]
+  - &ta_f2
+    query: { tags: { any-in: [ f2_vector ] } }
+    query-list: *detectors
+    components: *sp1_components
+    correction-steps: [ plain ]
+  - &ta_f3
+    query: { tags: { any-in: [ f3_vector ] } }
+    query-list: *detectors
+    components: *sp1_components
+    correction-steps: [ plain ]
+
+# ----- Task array for true RP vector -----
+  - &ta_psi1
+    query: { tags: { any-in: [ psi_vector ] } }
+    query-list: *detectors
+    components: *sp1_components
+    correction-steps: [ plain ]
+  - &ta_psi2
+    query: { tags: { any-in: [ psi_vector ] } }
+    query-list: *detectors
+    components: *sp2_components
+    correction-steps: [ plain ]
+
+_tasks:
+# *******************************************
+# TRUE RP
+# *******************************************
+
+# ----- v1 true relative to the true RP -----
+  - args: [*ta_proton1, *ta_psi1]
+    n-samples: 100
+    weights-type: observable
+    folder: "/SP/TrueRP/u1Psi1"
+    axes: [ *centrality ]
+
+# ----- v2 true relative to the true RP -----
+  - args: [*ta_proton1, *ta_psi2]
+    n-samples: 100
+    weights-type: observable
+    folder: "/SP/TrueRP/u2Psi2"
+    axes: [ *centrality ]
+
+# *******************************************
+# FHCal
+# *******************************************
+
+# ----- < u, F > -----
+  - args: [*ta_u1, *ta_fhcal]
+    n-samples: 100
+    weights-type: observable
+    folder: "/SP/FHCal/u1Q1"
+    axes: [ *centrality ]
+
+# ----- < F{1,2,3}, F{1,2,3} > -----
+  - args: [*ta_fhcal, *ta_fhcal]
+    n-samples: 100
+    weights-type: reference
+    folder: "/SP/FHCal/Q1Q1"
+    axes: [ *centrality ]
+
+# ----- < F{1,2,3}, RP > -----
+  - args: [*ta_fhcal, *ta_psi1]
+    n-samples: 100
+    weights-type: reference
+    folder: "/SP/FHCal/Q1Psi1"
+    axes: [ *centrality ]
+
+# *******************************************
+# Track
+# *******************************************
+
+  - args: [*ta_pi_neg2, *ta_psi2]
+    n-samples: 100
+    weights-type: reference
+    folder: "/SP/Track/Q2Psi2"
+    axes: [ *centrality ]

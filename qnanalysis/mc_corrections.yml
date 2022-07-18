@@ -1,0 +1,104 @@
+_layouts:
+
+_axes:
+  - &centrality
+    name: event_header/centrality
+    nb: 10
+    lo: 0
+    hi: 100
+  - &ax-sim-protons-pT {name: particles/pT, nb: 10, lo: 0.0, hi: 2.}
+  - &ax-sim-pions-pT {name: particles/pT, nb: 10, lo: 0.0, hi: 1.}
+  - &ax-sim-y {name: particles/y_cm, nb: 20, lo: -1.0, hi: 1.0}
+
+
+_cuts:
+  - &good-sim-protons
+    particles/pid : { equals: 2212 }
+  - &good-sim-pi-neg
+    particles/pid : { equals: -211 }
+  - &silicon-proton
+    particles/pid : { equals: 2212 }
+    particles/y_cm : { range: [0.0, 0.6] }
+    particles/pT : { range: [0.4, 2.0] }
+  - &silicon-pi-neg
+    particles/pid : { equals: -211 }
+    particles/y_cm : { range: [-0.2, 0.8] }
+    particles/pT : { range: [0.3, 1.0] }
+  - &mc-fhcal-1-cuts
+    particles/eta : { range: [4.4, 5.5] }
+#    particles/type : { equals: 1 }
+  - &mc-fhcal-2-cuts
+    particles/eta : { range: [3.9, 4.4] }
+#    particles/type : { equals: 1 }
+  - &mc-fhcal-3-cuts
+    particles/eta : { range: [3.1, 3.9] }
+#    particles/type : { equals: 1 }
+  - &mc-fhcal-pos
+    particles/eta : { range: [2.5, 5.0] }
+  - &mc-fhcal-neg
+    particles/eta : { range: [-5.0, -2.5] }
+
+BMN:
+  event-variables:
+    - event_header/centrality
+  axes: [ *centrality ]
+  q-vectors:
+  # SIM PARTICLES
+  - name: proton
+    type: track
+    phi:  particles/phi
+    weight: Ones
+    norm: m
+    axes:
+      - *ax-sim-y
+      - *ax-sim-protons-pT
+    cuts: *good-sim-protons
+  - name: pi_neg
+    type: track
+    phi:  particles/phi
+    weight: Ones
+    norm: m
+    axes:
+      - *ax-sim-y
+      - *ax-sim-pions-pT
+    cuts: *good-sim-pi-neg
+
+#  MC PARTICLES IN FHCAL ACCEPTANCE
+#  - name: F1
+#    type: track
+#    phi: particles/phi
+#    weight: particles/Ekin
+#    norm: m
+#    cuts: *mc-fhcal-1-cuts
+#  - name: F2
+#    type: track
+#    phi: particles/phi
+#    weight: particles/Ekin
+#    norm: m
+#    cuts: *mc-fhcal-2-cuts
+#  - name: F3
+#    type: track
+#    phi: particles/phi
+#    weight: particles/Ekin
+#    norm: m
+#    cuts: *mc-fhcal-3-cuts
+  - name: Fp
+    type: track
+    phi: particles/phi
+    weight: particles/Ekin
+    norm: m
+    cuts: *mc-fhcal-3-pos
+  - name: Fn
+    type: track
+    phi: particles/phi
+    weight: particles/Ekin
+    norm: m
+    cuts: *mc-fhcal-3-neg
+
+
+  # REFERENCE PSI RP
+  - name: psi_rp
+    type: psi
+    phi: event_header/psi_rp
+    weight: Ones
+    norm: mag
