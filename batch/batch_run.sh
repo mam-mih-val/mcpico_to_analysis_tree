@@ -15,7 +15,7 @@ cd $job_num
 source /cvmfs/nica.jinr.ru/sw/os/login.sh
 module add GCC-Toolchain/
 
-source /scratch1/mmamaev/fairsoft/install/bin/thisroot.sh
+source /scratch1/mmamaev/bmn_environment.sh
 echo
 date
 echo "Running conversion ..."
