@@ -87,13 +87,13 @@ BMN:
     phi: particles/phi
     weight: particles/Ekin
     norm: m
-    cuts: *mc-fhcal-3-pos
+    cuts: *mc-fhcal-pos
   - name: Fn
     type: track
     phi: particles/phi
     weight: particles/Ekin
     norm: m
-    cuts: *mc-fhcal-3-neg
+    cuts: *mc-fhcal-neg
 
 
   # REFERENCE PSI RP
