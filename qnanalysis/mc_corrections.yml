@@ -8,7 +8,7 @@ _axes:
     hi: 100
   - &ax-sim-protons-pT {name: particles/pT, nb: 10, lo: 0.0, hi: 2.}
   - &ax-sim-pions-pT {name: particles/pT, nb: 10, lo: 0.0, hi: 1.}
-  - &ax-sim-y {name: particles/y_cm, nb: 20, lo: -1.0, hi: 1.0}
+  - &ax-sim-y {name: particles/y_cm, nb: 30, lo: -1.5, hi: 1.5}
 
 
 _cuts:

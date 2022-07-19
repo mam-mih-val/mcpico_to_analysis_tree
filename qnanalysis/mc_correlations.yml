@@ -117,7 +117,7 @@ _tasks:
     axes: [ *centrality ]
 
 # ----- v2 true relative to the true RP -----
-  - args: [*ta_proton1, *ta_psi2]
+  - args: [*ta_proton2, *ta_psi2]
     n-samples: 100
     weights-type: observable
     folder: "/SP/TrueRP/u2Psi2"
