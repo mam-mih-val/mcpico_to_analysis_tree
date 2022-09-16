@@ -52,4 +52,6 @@ echo "Running correlation ..."
                                                                               --configuration-name _tasks \
                                                                               -o correlation_out.root
 
+rm output*.root list.txt correction_out.root
+
 echo PROCESS FINISHED
