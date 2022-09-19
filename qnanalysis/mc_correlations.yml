@@ -5,17 +5,11 @@ _detectors: &detectors
   - name: pi_neg
     tags: [ sim_un_vector, pi_neg ]
 # ----- Tracking vectors -----
-  - name: Sp
+  - name: Tp
     tags: [ track_vector, sp_vector ]
-  - name: Spi
+  - name: Tpi
     tags: [ track_vector, spi_vector ]
-# ----- FHCal vectors -----
-#  - name: F1
-#    tags: [ fhcal_vector, f1_vector ]
-#  - name: F2
-#    tags: [ fhcal_vector, f2_vector ]
-#  - name: F3
-#    tags: [ fhcal_vector, f3_vector ]
+
   - name: Fp
     tags: [ fhcal_vector, fp_vector ]
   - name: Fn
@@ -46,6 +40,11 @@ _tasks_args:
     correction-steps: [ plain ]
   - &ta_u2
     query: { tags: { any-in: [ sim_un_vector ] } }
+    query-list: *detectors
+    components: *sp2_components
+    correction-steps: [ plain ]
+  - &ta_t2
+    query: { tags: { any-in: [ track_vector ] } }
     query-list: *detectors
     components: *sp2_components
     correction-steps: [ plain ]
@@ -110,14 +109,14 @@ _tasks:
 # *******************************************
 
 # ----- v1 true relative to the true RP -----
-  - args: [*ta_proton1, *ta_psi1]
+  - args: [*ta_u1, *ta_psi1]
     n-samples: 100
     weights-type: observable
     folder: "/SP/TrueRP/u1Psi1"
     axes: [ *centrality ]
 
 # ----- v2 true relative to the true RP -----
-  - args: [*ta_proton2, *ta_psi2]
+  - args: [*ta_u2, *ta_psi2]
     n-samples: 100
     weights-type: observable
     folder: "/SP/TrueRP/u2Psi2"
@@ -132,6 +131,13 @@ _tasks:
     n-samples: 100
     weights-type: observable
     folder: "/SP/FHCal/u1Q1"
+    axes: [ *centrality ]
+
+# ----- < u, T{p, pi}, F > -----
+  - args: [*ta_u1, *ta_t2, *ta_fhcal]
+    n-samples: 100
+    weights-type: observable
+    folder: "/SP/FHCal/u1Q2Q1"
     axes: [ *centrality ]
 
 # ----- < F{1,2,3}, F{1,2,3} > -----
@@ -152,7 +158,7 @@ _tasks:
 # Track
 # *******************************************
 
-  - args: [*ta_pi_neg2, *ta_psi2]
+  - args: [*ta_t2, *ta_psi2]
     n-samples: 100
     weights-type: reference
     folder: "/SP/Track/Q2Psi2"
