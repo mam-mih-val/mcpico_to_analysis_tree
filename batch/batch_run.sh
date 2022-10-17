@@ -4,6 +4,7 @@
 format='+%Y/%m/%d-%H:%M:%S'
 
 date $format
+echo "JOB IS RUNNING on $HOSTNAME"
 
 job_num=$(($SGE_TASK_ID))
 filelist=$lists_dir/$(ls $lists_dir | sed "${job_num}q;d")
