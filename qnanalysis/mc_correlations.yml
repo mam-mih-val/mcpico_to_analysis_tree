@@ -10,9 +10,11 @@ _detectors: &detectors
   - name: Tpi
     tags: [ track_vector, spi_vector ]
 
-  - name: Fp
+  - name: F1
     tags: [ fhcal_vector, fp_vector ]
-  - name: Fn
+  - name: F2
+    tags: [ fhcal_vector, fn_vector ]
+  - name: F3
     tags: [ fhcal_vector, fn_vector ]
 # ----- True RP vector -----
   - name: psi_rp
@@ -105,7 +107,7 @@ _tasks_args:
 
 _tasks:
 # *******************************************
-# TRUE RP
+# v1 observables
 # *******************************************
 
 # ----- v1 true relative to the true RP -----
@@ -115,36 +117,11 @@ _tasks:
     folder: "/SP/TrueRP/u1Psi1"
     axes: [ *centrality ]
 
-# ----- v2 true relative to the true RP -----
-  - args: [*ta_u2, *ta_psi2]
-    n-samples: 100
-    weights-type: observable
-    folder: "/SP/TrueRP/u2Psi2"
-    axes: [ *centrality ]
-
-# *******************************************
-# FHCal
-# *******************************************
-
 # ----- < u, F > -----
   - args: [*ta_u1, *ta_fhcal]
     n-samples: 100
     weights-type: observable
     folder: "/SP/FHCal/u1Q1"
-    axes: [ *centrality ]
-
-# ----- < u, T{p, pi}, F > -----
-  - args: [*ta_u1, *ta_t2, *ta_fhcal]
-    n-samples: 100
-    weights-type: observable
-    folder: "/SP/FHCal/u1Q2Q1"
-    axes: [ *centrality ]
-
-# ----- < F{1,2,3}, F{1,2,3} > -----
-  - args: [*ta_fhcal, *ta_fhcal]
-    n-samples: 100
-    weights-type: reference
-    folder: "/SP/FHCal/Q1Q1"
     axes: [ *centrality ]
 
 # ----- < F{1,2,3}, RP > -----
@@ -154,12 +131,37 @@ _tasks:
     folder: "/SP/FHCal/Q1Psi1"
     axes: [ *centrality ]
 
-# *******************************************
-# Track
-# *******************************************
-
-  - args: [*ta_t2, *ta_psi2]
-    n-samples: 100
-    weights-type: reference
-    folder: "/SP/Track/Q2Psi2"
-    axes: [ *centrality ]
+## ----- v2 true relative to the true RP -----
+#  - args: [*ta_u2, *ta_psi2]
+#    n-samples: 100
+#    weights-type: observable
+#    folder: "/SP/TrueRP/u2Psi2"
+#    axes: [ *centrality ]
+#
+## *******************************************
+## FHCal
+## *******************************************
+#
+## ----- < u, T{p, pi}, F > -----
+#  - args: [*ta_u1, *ta_t2, *ta_fhcal]
+#    n-samples: 100
+#    weights-type: observable
+#    folder: "/SP/FHCal/u1Q2Q1"
+#    axes: [ *centrality ]
+#
+## ----- < F{1,2,3}, F{1,2,3} > -----
+#  - args: [*ta_fhcal, *ta_fhcal]
+#    n-samples: 100
+#    weights-type: reference
+#    folder: "/SP/FHCal/Q1Q1"
+#    axes: [ *centrality ]
+#
+## *******************************************
+## Track
+## *******************************************
+#
+#  - args: [*ta_t2, *ta_psi2]
+#    n-samples: 100
+#    weights-type: reference
+#    folder: "/SP/Track/Q2Psi2"
+#    axes: [ *centrality ]
