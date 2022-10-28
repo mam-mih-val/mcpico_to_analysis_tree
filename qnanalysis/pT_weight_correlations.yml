@@ -11,7 +11,7 @@ _detectors: &detectors
 
 _axes:
   - &centrality
-    name: event_header/b
+    name: event_header_b
     nb: 15
     lo: 0
     hi: 15

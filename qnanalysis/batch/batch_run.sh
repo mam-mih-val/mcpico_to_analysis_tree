@@ -54,15 +54,14 @@ echo "Running correlation ..."
                                                                               --configuration-name _tasks \
                                                                               -o correlation_out.root
 
-rm output*.root list.txt correction_out.root
-
 echo; date
 echo "Running checks ..."
 /scratch1/mmamaev/mcpico_to_analysis_tree/build/qnanalysis/flow/flow \
                                                         -i list.txt \
                                                         -t atree \
-                                                        -o output.root \
+                                                        -o flow_out.root \
                                                         -N -1
 
+rm output*.root list.txt correction_out.root
 
 echo PROCESS FINISHED
