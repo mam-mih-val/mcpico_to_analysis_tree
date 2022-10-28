@@ -1,0 +1,48 @@
+_layouts:
+
+_axes:
+  - &centrality
+    name: event_header/b
+    nb: 15
+    lo: 0
+    hi: 15
+  - &ax-sim-protons-pT {name: particles/pT, nb: 25, lo: 0.0, hi: 2.5}
+  - &ax-sim-pions-pT {name: particles/pT, nb: 20, lo: 0.0, hi: 1.}
+  - &ax-sim-y {name: particles/y_cm, nb: 15, lo: -0.75, hi: 0.75}
+
+
+_cuts:
+  - &good-sim-protons
+    particles/pid : { equals: 2212 }
+
+BMN:
+  event-variables:
+    - event_header/b
+  axes: [ *centrality ]
+  q-vectors:
+  # SIM PARTICLES
+  - name: proton_ones
+    type: track
+    phi:  particles/phi
+    weight: Ones
+    norm: m
+    axes:
+      - *ax-sim-y
+      - *ax-sim-protons-pT
+    cuts: *good-sim-protons
+  - name: proton_pT
+    type: track
+    phi:  particles/phi
+    weight: particles/pT
+    norm: m
+    axes:
+      - *ax-sim-y
+      - *ax-sim-protons-pT
+    cuts: *good-sim-protons
+
+  # REFERENCE PSI RP
+  - name: psi_rp
+    type: psi
+    phi: event_header/psi_rp
+    weight: Ones
+    norm: mag

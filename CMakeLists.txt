@@ -47,3 +47,5 @@ add_executable(convert
         src/unigen_chain.cc
         src/out_tree_manager.cc)
 target_link_libraries(convert ROOT::RIO ROOT::Tree AnalysisTreeBase AnalysisTreeInfra Boost::program_options Unigen)
+
+add_subdirectory(qnanalysis/flow)

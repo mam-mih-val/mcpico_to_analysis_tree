@@ -1,0 +1,67 @@
+_detectors: &detectors
+# ----- Sim un-vectors -----
+  - name: proton_ones
+    tags: [ proton ]
+  - name: proton_pT
+    tags: [ proton ]
+
+# ----- True RP vector -----
+  - name: psi_rp
+    tags: [ psi_vector ]
+
+_axes:
+  - &centrality
+    name: event_header/b
+    nb: 15
+    lo: 0
+    hi: 15
+
+_components:
+  - &sp1_components [ x1,y1 ]
+  - &sp2_components [ x2,y2 ]
+  - &sp3_components [ x3,y3 ]
+
+_tasks_args:
+
+# ----- Task array for sim un vectors -----
+  - &ta_u1
+    query: { tags: { any-in: [ proton ] } }
+    query-list: *detectors
+    components: *sp1_components
+    correction-steps: [ plain ]
+  - &ta_u2
+    query: { tags: { any-in: [ proton ] } }
+    query-list: *detectors
+    components: *sp2_components
+    correction-steps: [ plain ]
+
+# ----- Task array for true RP vector -----
+  - &ta_psi1
+    query: { tags: { any-in: [ psi_vector ] } }
+    query-list: *detectors
+    components: *sp1_components
+    correction-steps: [ plain ]
+  - &ta_psi2
+    query: { tags: { any-in: [ psi_vector ] } }
+    query-list: *detectors
+    components: *sp2_components
+    correction-steps: [ plain ]
+
+_tasks:
+# *******************************************
+# v1 observables
+# *******************************************
+
+# ----- v1 true relative to the true RP -----
+  - args: [*ta_u1, *ta_psi1]
+    n-samples: 100
+    weights-type: observable
+    folder: "/u1Psi1"
+    axes: [ *centrality ]
+
+# ----- v2 true relative to the true RP -----
+  - args: [*ta_u2, *ta_psi2]
+    n-samples: 100
+    weights-type: observable
+    folder: "/u2Psi2"
+    axes: [ *centrality ]
