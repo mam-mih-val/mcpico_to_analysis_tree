@@ -30,9 +30,15 @@ public:
   ~TracksProcessor() override = default;
   void Init() override;
   void Exec() override;
+  void SetOutFileName(const std::string &file_out_name) {
+    out_file_name_ = file_out_name;
+  }
   void Finish() override {
+    out_file_ = TFile::Open(out_file_name_.c_str(), "recreate" );
+    out_file_->cd();
     v2_vs_b_ones_->Write();
     v2_vs_b_pT_->Write();
+    out_file_->Close();
   }
 
 protected:
@@ -40,6 +46,9 @@ protected:
 
 private:
   bool is_mc_ = true;
+
+  std::string out_file_name_{"out.root"};
+  TFile* out_file_{nullptr};
 
   Branch in_sim_particles_;
   Branch in_event_header_;

@@ -41,8 +41,8 @@ int main(int argv, char **argc){
 
   auto* man = AnalysisTree::TaskManager::GetInstance();
   auto* task = new AnalysisTree::TracksProcessor();
+  task->SetOutFileName(output_file);
   man->AddTask(task);
-  man->SetOutputName(output_file);
   man->Init(in_file_lists, in_tree_names);
   man->Run(n_events);
   man->Finish();
