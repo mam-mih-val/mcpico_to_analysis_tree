@@ -51,7 +51,7 @@ void TracksProcessor::LoopSimParticles() {
   for (size_t i=0; i<in_sim_particles_.size(); ++i) {
     auto in_particle = in_sim_particles_[i];
 
-    if( in_particle[field_y_cm] < -0.75 )
+    if( in_particle[field_y_cm] < 0.0 )
       continue;
     if( in_particle[field_y_cm] > 0.75 )
       continue;
