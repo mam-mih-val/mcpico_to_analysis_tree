@@ -53,8 +53,8 @@ private:
   Branch in_sim_particles_;
   Branch in_event_header_;
 
-  TProfile*v1_vs_b_ones_ = nullptr;
-  TProfile*v1_vs_b_pT_ = nullptr;
+  TProfile* v1_vs_b_ones_ = nullptr;
+  TProfile* v1_vs_b_pT_ = nullptr;
 };
 
 }

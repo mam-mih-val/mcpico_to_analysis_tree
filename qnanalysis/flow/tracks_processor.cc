@@ -26,8 +26,8 @@ void TracksProcessor::Init() {
   in_event_header_ = chain->GetBranch("event_header");
   in_event_header_.Freeze();
 
-  v1_vs_b_ones_ = new TProfile( "v1_vs_b_ones_", ";b (fm); v2", 15, 0, 15.0 );
-  v1_vs_b_pT_ = new TProfile( "v1_vs_b_pT_", ";b (fm); v2", 15, 0, 15.0 );
+  v1_vs_b_ones_ = new TProfile( "v1_vs_b_ones_", ";b (fm); v_{1}", 15, 0, 15.0 );
+  v1_vs_b_pT_ = new TProfile( "v1_vs_b_pT_", ";b (fm); v_{1}", 15, 0, 15.0 );
 }
 
 void TracksProcessor::Exec() {
@@ -43,7 +43,7 @@ void TracksProcessor::LoopSimParticles() {
   auto field_pid = in_sim_particles_.GetField("pid");
 
   auto field_b = in_event_header_.GetField("b");
-  auto field_psi_rp = in_event_header_.GetField("b");
+  auto field_psi_rp = in_event_header_.GetField("psi_rp");
 
   auto b = in_event_header_.GetDataRaw<EventHeader*>()->GetField<float>(field_b.GetFieldId());
   auto psi_rp = in_event_header_.GetDataRaw<EventHeader*>()->GetField<float>(field_psi_rp.GetFieldId());
