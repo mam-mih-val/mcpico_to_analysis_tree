@@ -36,8 +36,8 @@ public:
   void Finish() override {
     out_file_ = TFile::Open(out_file_name_.c_str(), "recreate" );
     out_file_->cd();
-    v2_vs_b_ones_->Write();
-    v2_vs_b_pT_->Write();
+    v1_vs_b_ones_->Write();
+    v1_vs_b_pT_->Write();
     out_file_->Close();
   }
 
@@ -53,8 +53,8 @@ private:
   Branch in_sim_particles_;
   Branch in_event_header_;
 
-  TProfile* v2_vs_b_ones_ = nullptr;
-  TProfile* v2_vs_b_pT_ = nullptr;
+  TProfile*v1_vs_b_ones_ = nullptr;
+  TProfile*v1_vs_b_pT_ = nullptr;
 };
 
 }
