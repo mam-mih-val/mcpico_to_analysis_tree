@@ -26,8 +26,8 @@ void TracksProcessor::Init() {
   in_event_header_ = chain->GetBranch("event_header");
   in_event_header_.Freeze();
 
-  v2_vs_b_ones_ = new TProfile( "v2_vs_b_ones_", ";b (fm); v2", 15, 0, 15.0 );
-  v2_vs_b_pT_ = new TProfile( "v2_vs_b_pT_", ";b (fm); v2", 15, 0, 15.0 );
+  v1_vs_b_ones_ = new TProfile( "v1_vs_b_ones_", ";b (fm); v2", 15, 0, 15.0 );
+  v1_vs_b_pT_ = new TProfile( "v1_vs_b_pT_", ";b (fm); v2", 15, 0, 15.0 );
 }
 
 void TracksProcessor::Exec() {
@@ -51,7 +51,7 @@ void TracksProcessor::LoopSimParticles() {
   for (size_t i=0; i<in_sim_particles_.size(); ++i) {
     auto in_particle = in_sim_particles_[i];
 
-    if( in_particle[field_y_cm] < 0.0 )
+    if( in_particle[field_y_cm] < 0.05 )
       continue;
     if( in_particle[field_y_cm] > 0.75 )
       continue;
@@ -63,8 +63,8 @@ void TracksProcessor::LoopSimParticles() {
     auto pT = in_particle[field_pT];
     auto phi = in_particle[field_phi];
 
-    v2_vs_b_ones_->Fill( b, cos( 2*(phi - psi_rp) ) );
-    v2_vs_b_pT_->Fill( b, cos( 2*(phi - psi_rp) ), pT );
+    v1_vs_b_ones_->Fill( b, cos( phi - psi_rp ) );
+    v1_vs_b_pT_->Fill( b, cos( phi - psi_rp ), pT );
   }
 }
 
