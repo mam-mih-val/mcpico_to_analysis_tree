@@ -2,11 +2,10 @@ _layouts:
 
 _axes:
   - &centrality
-    name: event_header/centrality
-    nb: 10
-    lo: 0
-    hi: 100
-  - &ax-sim-protons-pT {name: particles/pT, nb: 25, lo: 0.0, hi: 2.5}
+    name: event_header/b_norm
+    bin-edges: [0, 0.15, 0.31, 0.47, 0.63, 0.8, 0.97, 1.17, 1.37, 1.6, 2.0]
+
+  - &ax-sim-protons-pT {name: particles/pT, nb: 20, lo: 0.0, hi: 2.0}
   - &ax-sim-pions-pT {name: particles/pT, nb: 20, lo: 0.0, hi: 1.}
   - &ax-sim-y {name: particles/y_cm, nb: 15, lo: -0.75, hi: 0.75}
 
@@ -40,7 +39,7 @@ _cuts:
 
 BMN:
   event-variables:
-    - event_header/centrality
+    - event_header/b_norm
   axes: [ *centrality ]
   q-vectors:
   # SIM PARTICLES
@@ -76,24 +75,24 @@ BMN:
 #    norm: m
 #    cuts: *silicon-pi-neg
 
-  - name: F1
-    type: track
-    phi: particles/phi
-    weight: particles/Ekin
-    norm: m
-    cuts: *mc-fhcal-1-cuts
-  - name: F2
-    type: track
-    phi: particles/phi
-    weight: particles/Ekin
-    norm: m
-    cuts: *mc-fhcal-2-cuts
-  - name: F3
-    type: track
-    phi: particles/phi
-    weight: particles/Ekin
-    norm: m
-    cuts: *mc-fhcal-3-cuts
+#  - name: F1
+#    type: track
+#    phi: particles/phi
+#    weight: particles/Ekin
+#    norm: m
+#    cuts: *mc-fhcal-1-cuts
+#  - name: F2
+#    type: track
+#    phi: particles/phi
+#    weight: particles/Ekin
+#    norm: m
+#    cuts: *mc-fhcal-2-cuts
+#  - name: F3
+#    type: track
+#    phi: particles/phi
+#    weight: particles/Ekin
+#    norm: m
+#    cuts: *mc-fhcal-3-cuts
 
 
   # REFERENCE PSI RP

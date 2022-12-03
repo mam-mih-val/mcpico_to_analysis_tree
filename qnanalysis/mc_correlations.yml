@@ -22,10 +22,8 @@ _detectors: &detectors
 
 _axes:
   - &centrality
-    name: event_header_centrality
-    nb: 10
-    lo: 0
-    hi: 100
+    name: event_header_b_norm
+    bin-edges: [ 0, 0.15, 0.31, 0.47, 0.63, 0.8, 0.97, 1.17, 1.37, 1.6, 2.0 ]
 
 _components:
   - &sp1_components [ x1,y1 ]
@@ -118,18 +116,18 @@ _tasks:
     axes: [ *centrality ]
 
 # ----- < u, F > -----
-  - args: [*ta_u1, *ta_fhcal]
-    n-samples: 100
-    weights-type: observable
-    folder: "/SP/FHCal/u1Q1"
-    axes: [ *centrality ]
-
-# ----- < F{1,2,3}, RP > -----
-  - args: [*ta_fhcal, *ta_psi1]
-    n-samples: 100
-    weights-type: reference
-    folder: "/SP/FHCal/Q1Psi1"
-    axes: [ *centrality ]
+#  - args: [*ta_u1, *ta_fhcal]
+#    n-samples: 100
+#    weights-type: observable
+#    folder: "/SP/FHCal/u1Q1"
+#    axes: [ *centrality ]
+#
+## ----- < F{1,2,3}, RP > -----
+#  - args: [*ta_fhcal, *ta_psi1]
+#    n-samples: 100
+#    weights-type: reference
+#    folder: "/SP/FHCal/Q1Psi1"
+#    axes: [ *centrality ]
 
 ## ----- v2 true relative to the true RP -----
 #  - args: [*ta_u2, *ta_psi2]
