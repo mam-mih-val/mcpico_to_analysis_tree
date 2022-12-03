@@ -44,7 +44,7 @@ void Converter::Run() {
     out_particles->ClearChannels();
 
     auto b = in_chain_->GetImpactParameter();
-    auto b_norm = b / nucleus_radius_;
+    auto b_norm = static_cast<float>(b / nucleus_radius_);
     auto model_reaction_plane = in_chain_->GetReactionPlain();
     auto sampled_reaction_plane = float( dist( rng ) );
     auto n_part = in_chain_->GetNParticles();
