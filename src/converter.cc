@@ -15,6 +15,7 @@ void Converter::Run() {
   auto out_particles_config = out_tree_.GetParticlesConfig();
 
   auto b_id = out_event_header_config.GetFieldId( "b" );
+  auto b_norm_id = out_event_header_config.GetFieldId( "b_norm" );
   auto centrality_id = out_event_header_config.GetFieldId( "centrality" );
   auto psi_rp_id = out_event_header_config.GetFieldId( "psi_rp" );
   auto M_id = out_event_header_config.GetFieldId( "M");
@@ -29,10 +30,13 @@ void Converter::Run() {
 
   if( colliding_system_ == "Au+Au" ){
     b_edges_ = { 0, 3.888, 5.67, 6.966, 8.1, 9.072, 10.044, 10.854, 11.664, 12.474, 16.2 };
+    nucleus_radius_ = 1.2 * pow( 197, 1.0/3.0 );
   } else if( colliding_system_ == "Xe+Cs" ){
     b_edges_ = { 0, 3.608, 5.248, 6.56, 7.708, 8.692, 9.512, 10.332, 11.152, 12.3, 16.4 };
+    nucleus_radius_ = 1.2 * pow( 131, 1.0/3.0 );
   } else if( colliding_system_ == "Ag+Ag" ){
     b_edges_ = {  0, 3.12, 4.55, 5.59, 6.5, 7.28, 8.06, 8.71, 9.36, 10.14, 13  };
+    nucleus_radius_ = 1.2 * pow( 108, 1.0/3.0 );
   }
 
   int n_events=0;
@@ -40,6 +44,7 @@ void Converter::Run() {
     out_particles->ClearChannels();
 
     auto b = in_chain_->GetImpactParameter();
+    auto b_norm = b / nucleus_radius_;
     auto model_reaction_plane = in_chain_->GetReactionPlain();
     auto sampled_reaction_plane = float( dist( rng ) );
     auto n_part = in_chain_->GetNParticles();
@@ -55,6 +60,7 @@ void Converter::Run() {
     centrality = float( 2*idx - 1 )*10/2.0f;
 
     out_event_header->SetField( b, b_id );
+    out_event_header->SetField( b_norm, b_norm_id );
     out_event_header->SetField( centrality, centrality_id );
     out_event_header->SetField(sample_reaction_plane_ ? sampled_reaction_plane : model_reaction_plane, psi_rp_id );
     int multiplicity = 0;

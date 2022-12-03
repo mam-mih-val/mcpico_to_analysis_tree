@@ -33,6 +33,7 @@ private:
   std::string colliding_system_;
   double beta_cm_;
   double gama_cm_;
+  double nucleus_radius_;
   InputChain* in_chain_{nullptr};
   OutTreeManager out_tree_;
 };
