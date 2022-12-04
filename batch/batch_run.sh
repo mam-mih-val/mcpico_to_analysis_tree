@@ -1,5 +1,5 @@
 #!/bin/bash
-#$ -l h=!(ncx152.jinr.ru|ncx205.jinr.ru|ncx123.jinr.ru|ncx111.jinr.ru|ncx113.jinr.ru|ncx149.jinr.ru|ncx223.jinr.ru|ncx231.jinr.ru)
+#$ -l h=!(ncx111.jinr.ru|ncx113.jinr.ru|ncx116.jinr.ru|ncx123.jinr.ru|ncx143.jinr.ru|ncx149.jinr.ru|ncx152.jinr.ru|ncx172.jinr.ru|ncx205.jinr.ru|ncx223.jinr.ru|ncx231.jinr.ru)
 
 format='+%Y/%m/%d-%H:%M:%S'
 
