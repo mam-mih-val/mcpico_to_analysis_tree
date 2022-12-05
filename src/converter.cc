@@ -32,14 +32,14 @@ void Converter::Run() {
     b_edges_ = { 0, 3.888, 5.67, 6.966, 8.1, 9.072, 10.044, 10.854, 11.664, 12.474, 16.2 };
     if( fabs(sqrt_snn_ - 2.4) < 1e-2 )
       mult_edges_ = {
-            /* 0-5% */  124,
-            /* 5-10% */ 103,
-            /* 10-15% */ 86,
-            /* 15-20% */ 72,
-            /* 20-25% */ 60,
-            /* 25-30% */ 50,
-            /* 30-35% */ 41,
-            /* 35-40% */ 33
+            /* 0-5% */  142,
+            /* 5-10% */ 117,
+            /* 10-15% */ 97,
+            /* 15-20% */ 80,
+            /* 20-25% */ 66,
+            /* 25-30% */ 54,
+            /* 30-35% */ 44,
+            /* 35-40% */ 35
     };
     nucleus_radius_ = 1.2 * pow( 197, 1.0/3.0 );
   } else if( colliding_system_ == "Xe+Cs" ){
@@ -50,25 +50,25 @@ void Converter::Run() {
 
     if( fabs(sqrt_snn_ - 2.4) < 1e-2 )
       mult_edges_ = {
-              /* 0-5% */  69,
-              /* 5-10% */ 57,
-              /* 10-15% */ 48,
-              /* 15-20% */ 40,
-              /* 20-25% */ 33,
-              /* 25-30% */ 27,
-              /* 30-35% */ 22,
-              /* 35-40% */ 17
+              /* 0-5% */  79,
+              /* 5-10% */ 65,
+              /* 10-15% */ 54,
+              /* 15-20% */ 45,
+              /* 20-25% */ 37,
+              /* 25-30% */ 30,
+              /* 30-35% */ 24,
+              /* 35-40% */ 19
       };
     if( fabs(sqrt_snn_ - 2.5) < 1e-2 )
       mult_edges_ = {
-              /* 0-5% */  67,
-              /* 5-10% */ 55,
-              /* 10-15% */ 46,
-              /* 15-20% */ 38,
-              /* 20-25% */ 31,
-              /* 25-30% */ 25,
-              /* 30-35% */ 20,
-              /* 35-40% */ 16
+              /* 0-5% */  82,
+              /* 5-10% */ 68,
+              /* 10-15% */ 56,
+              /* 15-20% */ 46,
+              /* 20-25% */ 38,
+              /* 25-30% */ 31,
+              /* 30-35% */ 25,
+              /* 35-40% */ 20
       };
     nucleus_radius_ = 1.2 * pow( 108, 1.0/3.0 );
   }
@@ -83,19 +83,8 @@ void Converter::Run() {
     auto sampled_reaction_plane = dist( rng );
     auto n_part = in_chain_->GetNParticles();
 
-    auto centrality = -1.0f;
-    int idx = 0;
-    float bin_edge = !b_edges_.empty() ? b_edges_[idx] : 0;
-    while( b > bin_edge &&
-           idx < b_edges_.size()-1 ){
-      idx++;
-      bin_edge = b_edges_[idx];
-    }
-    centrality = static_cast<float>( 2*idx - 1 )*10/2.0f;
-
     out_event_header->SetField( b, b_id );
     out_event_header->SetField( b_norm, b_norm_id );
-    out_event_header->SetField( centrality, centrality_id );
     out_event_header->SetField(sample_reaction_plane_ ? sampled_reaction_plane : model_reaction_plane, psi_rp_id );
     int multiplicity = 0;
     for( int i=0; i<n_part; ++i ){
@@ -151,7 +140,20 @@ void Converter::Run() {
         continue;
       multiplicity++; // counting only charged particles
     }
+
+    auto centrality = -1.0f;
+    int idx = 1;
+    int bin_edge = !mult_edges_.empty() ? mult_edges_[0] : 0;
+    while( multiplicity < bin_edge &&
+           idx < mult_edges_.size() - 1 ){
+      bin_edge = mult_edges_[idx];
+      idx++;
+    }
+
+    centrality = static_cast<float>( 2*idx - 1 )* 5.0f / 2.0f;
+
     out_event_header->SetField( multiplicity, M_id);
+    out_event_header->SetField( centrality, centrality_id );
 
     out_tree_.Fill();
     out_tree_.CheckIfNewFile();
