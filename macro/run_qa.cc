@@ -113,6 +113,11 @@ void EventHeaderQA(QA::Task& task) {
   task.AddH1({"b (fm)", {event_header, "b"}, {200, 0, 20}});
   task.AddH1({"#Psi^{RP} (rad)", {event_header, "psi_rp"}, {400, -4, 4}});
   task.AddH1({"M", {event_header, "M"}, {400, 0, 400}});
+  task.AddH1({"centrality (5)", {event_header, "centrality"}, {8, 0, 40}});
+  task.AddH2(
+          {"centrality (5)", {event_header, "centrality"}, {20, 0, 100}},
+          {"M", {event_header, "M"}, {400, 0, 400}}
+  );
 }
 
 int main(int argc, char** argv)
