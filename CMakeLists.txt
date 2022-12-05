@@ -48,4 +48,7 @@ add_executable(convert
         src/out_tree_manager.cc)
 target_link_libraries(convert ROOT::RIO ROOT::Tree AnalysisTreeBase AnalysisTreeInfra Boost::program_options Unigen)
 
+add_executable(cut_equal_bins macro/cut_equal_bins.cc)
+target_link_libraries(cut_equal_bins ROOT::RIO ROOT::ProofBench)
+
 add_subdirectory(qnanalysis/flow)

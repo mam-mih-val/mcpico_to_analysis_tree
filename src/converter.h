@@ -19,6 +19,7 @@ public:
   void SetInChain(InputChain *in_chain) { in_chain_ = in_chain; }
   void SetCollidingSystem(const std::string &colliding_system, double energy) {
     colliding_system_ = colliding_system;
+    sqrt_snn_ = energy;
     beta_cm_ = sqrt( 1 - 4*0.938*0.938 / energy / energy);
     gama_cm_ = 1.0 / sqrt( 1.0 - beta_cm_*beta_cm_ );
     out_tree_.WriteDataHeader( colliding_system, energy );
@@ -28,9 +29,11 @@ private:
   std::vector<int> auau_mult_edges_{ 0, 240, 172, 120, 80, 48, 24, 8, 0 };
   std::vector<float> auau_b_edges_{ 0, 3.888, 5.67, 6.966, 8.1, 9.072, 10.044, 10.854, 11.664, 12.474, 16.2 };
   std::vector<float> b_edges_;
+  std::vector<float> mult_edges_;
   bool sample_reaction_plane_{false};
   bool boost_to_lab_{false};
   std::string colliding_system_;
+  double sqrt_snn_;
   double beta_cm_;
   double gama_cm_;
   double nucleus_radius_;

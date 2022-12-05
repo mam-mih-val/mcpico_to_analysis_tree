@@ -30,12 +30,46 @@ void Converter::Run() {
 
   if( colliding_system_ == "Au+Au" ){
     b_edges_ = { 0, 3.888, 5.67, 6.966, 8.1, 9.072, 10.044, 10.854, 11.664, 12.474, 16.2 };
+    if( fabs(sqrt_snn_ - 2.4) < 1e-2 )
+      mult_edges_ = {
+            /* 0-5% */  124,
+            /* 5-10% */ 103,
+            /* 10-15% */ 86,
+            /* 15-20% */ 72,
+            /* 20-25% */ 60,
+            /* 25-30% */ 50,
+            /* 30-35% */ 41,
+            /* 35-40% */ 33
+    };
     nucleus_radius_ = 1.2 * pow( 197, 1.0/3.0 );
   } else if( colliding_system_ == "Xe+Cs" ){
     b_edges_ = { 0, 3.608, 5.248, 6.56, 7.708, 8.692, 9.512, 10.332, 11.152, 12.3, 16.4 };
     nucleus_radius_ = 1.2 * pow( 131, 1.0/3.0 );
   } else if( colliding_system_ == "Ag+Ag" ){
     b_edges_ = {  0, 3.12, 4.55, 5.59, 6.5, 7.28, 8.06, 8.71, 9.36, 10.14, 13  };
+
+    if( fabs(sqrt_snn_ - 2.4) < 1e-2 )
+      mult_edges_ = {
+              /* 0-5% */  69,
+              /* 5-10% */ 57,
+              /* 10-15% */ 48,
+              /* 15-20% */ 40,
+              /* 20-25% */ 33,
+              /* 25-30% */ 27,
+              /* 30-35% */ 22,
+              /* 35-40% */ 17
+      };
+    if( fabs(sqrt_snn_ - 2.5) < 1e-2 )
+      mult_edges_ = {
+              /* 0-5% */  67,
+              /* 5-10% */ 55,
+              /* 10-15% */ 46,
+              /* 15-20% */ 38,
+              /* 20-25% */ 31,
+              /* 25-30% */ 25,
+              /* 30-35% */ 20,
+              /* 35-40% */ 16
+      };
     nucleus_radius_ = 1.2 * pow( 108, 1.0/3.0 );
   }
 
@@ -109,9 +143,9 @@ void Converter::Run() {
       particle.SetField(static_cast<float>(Ekin), Ekin_id);
       particle.SetField(static_cast<int>(type), type_id);
 
-      if(  y_cm < -0.4 )
+      if(  eta < -1.0 )
         continue;
-      if( y_cm > 0.4 )
+      if( eta > 1.0 )
         continue;
       if( charge == 0 )
         continue;
