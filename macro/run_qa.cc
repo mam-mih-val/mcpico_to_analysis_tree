@@ -98,6 +98,11 @@ void ParticlesQA(QA::Task& task, Cuts* cuts)
   task.AddH2({"#eta", {particles, "eta"}, {300, -6, 6}},
              {"p_{T} (GeV/c)", {particles, "pT"}, {500, 0, 5}},
              cuts);
+  task.AddH2(
+          {"b (fm)", {event_header, "b"}, {200, 0, 20}},
+          {"#eta", {particles, "eta"}, {300, -6, 6}},
+          cuts );
+
   Variable v1("v1", {{particles, "phi"}, {event_header, "psi_rp"}}, [](std::vector<double> phi) { return cos(phi[0] - phi[1]); });
   Variable v2("v2", {{particles, "phi"}, {event_header, "psi_rp"}}, [](std::vector<double> phi) { return cos(2 * (phi[0] - phi[1])); });
   task.AddProfile({"#it{y}", {particles, "rapidity"}, {25, 0.0, 2.5}}, {"v_{1}", v1, {}}, cuts);

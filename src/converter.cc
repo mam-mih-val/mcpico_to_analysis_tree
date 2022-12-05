@@ -90,7 +90,7 @@ void Converter::Run() {
       }
       auto p = sqrt(px*px + py*py + pz*pz);
       auto eta = atanh( pz / p );
-      if( 0.2 < eta && eta < 2.5 ) multiplicity++;
+      if( 0.1 < eta && eta < 2.0 ) multiplicity++;
       E = sqrt( px*px + py*py + pz*pz + mass*mass );
       auto Ekin = E - mass;
       auto& particle = out_particles->AddChannel(out_particles_config);
