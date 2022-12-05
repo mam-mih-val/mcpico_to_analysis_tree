@@ -95,10 +95,6 @@ void Converter::Run() {
       }
       auto p = sqrt(px*px + py*py + pz*pz); // full momentum
       auto eta = atanh( pz / p ); // pseudorapidity
-      if( 0.15 < eta && eta < 1.8 ) {
-        if( charge != 0 )
-          multiplicity++;
-      } // counting only charged particles
       E = sqrt( px*px + py*py + pz*pz + mass*mass );
       auto Ekin = E - mass;
       auto& particle = out_particles->AddChannel(out_particles_config);
@@ -112,6 +108,14 @@ void Converter::Run() {
       particle.SetField(static_cast<float>(y_cm), y_cm_id);
       particle.SetField(static_cast<float>(Ekin), Ekin_id);
       particle.SetField(static_cast<int>(type), type_id);
+
+      if(  y_cm < -0.4 )
+        continue;
+      if( y_cm > 0.4 )
+        continue;
+      if( charge == 0 )
+        continue;
+      multiplicity++; // counting only charged particles
     }
     out_event_header->SetField( multiplicity, M_id);
 
