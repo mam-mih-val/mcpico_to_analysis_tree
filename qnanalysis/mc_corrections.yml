@@ -2,8 +2,10 @@ _layouts:
 
 _axes:
   - &centrality
-    name: event_header/b_norm
-    bin-edges: [0, 0.15, 0.31, 0.47, 0.63, 0.8, 0.97, 1.17, 1.37, 1.6, 2.0]
+    name: event_header/centrality
+    nb: 8
+    lo: 0.0
+    hi: 40.0
 
   - &ax-sim-protons-pT {name: particles/pT, nb: 20, lo: 0.0, hi: 2.0}
   - &ax-sim-pions-pT {name: particles/pT, nb: 20, lo: 0.0, hi: 1.}
@@ -39,7 +41,7 @@ _cuts:
 
 BMN:
   event-variables:
-    - event_header/b_norm
+    - event_header/centrality
   axes: [ *centrality ]
   q-vectors:
   # SIM PARTICLES
