@@ -145,7 +145,7 @@ void Converter::Run() {
     int idx = 1;
     int bin_edge = !mult_edges_.empty() ? mult_edges_[0] : 0;
     while( multiplicity < bin_edge &&
-           idx < mult_edges_.size() - 1 ){
+           idx < mult_edges_.size() ){
       bin_edge = mult_edges_[idx];
       idx++;
     }
