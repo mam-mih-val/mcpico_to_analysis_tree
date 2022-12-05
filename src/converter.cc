@@ -95,7 +95,7 @@ void Converter::Run() {
       }
       auto p = sqrt(px*px + py*py + pz*pz); // full momentum
       auto eta = atanh( pz / p ); // pseudorapidity
-      if( 0.1 < eta && eta < 1.8 ) {
+      if( 0.15 < eta && eta < 1.8 ) {
         if( charge != 0 )
           multiplicity++;
       } // counting only charged particles
