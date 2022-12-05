@@ -85,14 +85,19 @@ void Converter::Run() {
       }
       auto E = sqrt( px*px + py*py + pz*pz + mass*mass );
       auto y_cm = 0.5*( log( E + pz ) - log(E - pz) );
-      if( -0.6 < y_cm && y_cm < 0.6 ) multiplicity++;
       if( boost_to_lab_ ){
         pz = gama_cm_*( pz + beta_cm_*E );
       }
+      auto p = sqrt(px*px + py*py + pz*pz);
+      auto eta = atanh( pz / p );
+      if( 0.2 < eta && eta < 2.5 ) multiplicity++;
       E = sqrt( px*px + py*py + pz*pz + mass*mass );
       auto Ekin = E - mass;
       auto& particle = out_particles->AddChannel(out_particles_config);
-      particle.SetMomentum( float(px), float(py), float(pz) );
+      particle.SetMomentum(
+              static_cast<float>(px),
+              static_cast<float>(py),
+              static_cast<float>(pz) );
       particle.SetPid( pid );
       particle.SetMass( float(mass) );
 
