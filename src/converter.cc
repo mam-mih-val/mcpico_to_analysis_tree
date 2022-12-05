@@ -26,7 +26,7 @@ void Converter::Run() {
 
   std::random_device dev;
   std::mt19937 rng(dev());
-  std::uniform_real_distribution<> dist(-M_PI, M_PI);
+  std::uniform_real_distribution<float> dist(-M_PI, M_PI);
 
   if( colliding_system_ == "Au+Au" ){
     b_edges_ = { 0, 3.888, 5.67, 6.966, 8.1, 9.072, 10.044, 10.854, 11.664, 12.474, 16.2 };
@@ -46,7 +46,7 @@ void Converter::Run() {
     auto b = in_chain_->GetImpactParameter();
     auto b_norm = static_cast<float>(b / nucleus_radius_);
     auto model_reaction_plane = in_chain_->GetReactionPlain();
-    auto sampled_reaction_plane = float( dist( rng ) );
+    auto sampled_reaction_plane = dist( rng );
     auto n_part = in_chain_->GetNParticles();
 
     auto centrality = -1.0f;
@@ -57,7 +57,7 @@ void Converter::Run() {
       idx++;
       bin_edge = b_edges_[idx];
     }
-    centrality = float( 2*idx - 1 )*10/2.0f;
+    centrality = static_cast<float>( 2*idx - 1 )*10/2.0f;
 
     out_event_header->SetField( b, b_id );
     out_event_header->SetField( b_norm, b_norm_id );
@@ -68,29 +68,37 @@ void Converter::Run() {
       auto [px, py, pz] = in_chain_->GetMomentum(i);
       if( sample_reaction_plane_ ){
         // Rotation back to Psi_RP == 0
-        auto new_px =   px*cos(model_reaction_plane) + py*sin(model_reaction_plane);
-        auto new_py = - px*sin(model_reaction_plane) + py*cos(model_reaction_plane);
+        auto new_px =   px*cosf(model_reaction_plane) + py*sinf(model_reaction_plane);
+        auto new_py = - px*sinf(model_reaction_plane) + py*cosf(model_reaction_plane);
         // Rotation to sampled Psi_RP
-        px = new_px*cos( sampled_reaction_plane) - new_py*sin(sampled_reaction_plane);
-        py = new_px*sin( sampled_reaction_plane) + new_py*cos(sampled_reaction_plane);
+        px = new_px*cosf( sampled_reaction_plane) - new_py*sinf(sampled_reaction_plane);
+        py = new_px*sinf( sampled_reaction_plane) + new_py*cosf(sampled_reaction_plane);
       }
       auto pid = in_chain_->GetPdgCode(i);
       auto type = in_chain_->GetProductionRegion(i);
       double mass = 0.0;
-      if( TDatabasePDG::Instance()->GetParticle(pid) )
+      int charge = 0;
+      if( TDatabasePDG::Instance()->GetParticle(pid) ) {
         mass = TDatabasePDG::Instance()->GetParticle(pid)->Mass();
+        charge = static_cast<int>( TDatabasePDG::Instance()->GetParticle(pid)->Charge() / 3.0 );
+      }
       else{
+        // PDG Nuclei numbering scheme: +-10L'ZZZ'AAA'I ( L -number of Lambda, Z = np, A = np+nn, I=0 in case of ground state )
         int A = (pid % 10'000) / 10;
         mass = 0.931 * A;
+        charge = (pid % 10'000'000) / 10'000;
       }
       auto E = sqrt( px*px + py*py + pz*pz + mass*mass );
       auto y_cm = 0.5*( log( E + pz ) - log(E - pz) );
       if( boost_to_lab_ ){
         pz = gama_cm_*( pz + beta_cm_*E );
       }
-      auto p = sqrt(px*px + py*py + pz*pz);
-      auto eta = atanh( pz / p );
-      if( 0.1 < eta && eta < 2.0 ) multiplicity++;
+      auto p = sqrt(px*px + py*py + pz*pz); // full momentum
+      auto eta = atanh( pz / p ); // pseudorapidity
+      if( 0.1 < eta && eta < 1.8 ) {
+        if( charge != 0 )
+          multiplicity++;
+      } // counting only charged particles
       E = sqrt( px*px + py*py + pz*pz + mass*mass );
       auto Ekin = E - mass;
       auto& particle = out_particles->AddChannel(out_particles_config);
@@ -99,11 +107,11 @@ void Converter::Run() {
               static_cast<float>(py),
               static_cast<float>(pz) );
       particle.SetPid( pid );
-      particle.SetMass( float(mass) );
+      particle.SetMass( static_cast<float>(mass) );
 
-      particle.SetField(float(y_cm), y_cm_id);
-      particle.SetField(float(Ekin), Ekin_id);
-      particle.SetField(int(type), type_id);
+      particle.SetField(static_cast<float>(y_cm), y_cm_id);
+      particle.SetField(static_cast<float>(Ekin), Ekin_id);
+      particle.SetField(static_cast<int>(type), type_id);
     }
     out_event_header->SetField( multiplicity, M_id);
 
