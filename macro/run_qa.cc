@@ -118,6 +118,8 @@ void EventHeaderQA(QA::Task& task) {
           {"centrality (5)", {event_header, "centrality"}, {20, 0, 100}},
           {"M", {event_header, "M"}, {400, 0, 400}}
   );
+  task.AddH2({"M", {event_header, "M"}, {400, 0, 400}},
+             {"b (fm)", {event_header, "b"}, {200, 0, 20}});
 }
 
 int main(int argc, char** argv)
