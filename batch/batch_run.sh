@@ -29,8 +29,8 @@ echo "/scratch1/mmamaev/mcpico_to_analysis_tree/build/convert -i $filelist -o ou
                                                         -s $colliding_system \
                                                         -e $collision_energy \
                                                         --sample-reaction-plane \
+                                                        --boost-to-lab \
                                                         --$data_format
-#                                                        --boost-to-lab \
 
 find . -name "output*.root" > list.txt
 echo; date
