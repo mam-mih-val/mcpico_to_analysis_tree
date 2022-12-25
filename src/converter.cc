@@ -156,9 +156,9 @@ void Converter::Run() {
       particle.SetField(static_cast<float>(Ekin), Ekin_id);
       particle.SetField(static_cast<int>(type), type_id);
 
-      if(  eta < -1.0 )
+      if(  eta < 0.1 )
         continue;
-      if( eta > 1.0 )
+      if( eta > 1.8 )
         continue;
       if( charge == 0 )
         continue;
