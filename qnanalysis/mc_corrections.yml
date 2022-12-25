@@ -6,6 +6,11 @@ _axes:
     nb: 8
     lo: 0.0
     hi: 40.0
+  - &b_norm
+    name: event_header/b_norm
+    nb: 20
+    lo: 0.5
+    hi: 1.5
 
   - &ax-sim-protons-pT {name: particles/pT, nb: 20, lo: 0.0, hi: 2.0}
   - &ax-sim-pions-pT {name: particles/pT, nb: 20, lo: 0.0, hi: 1.}
@@ -41,8 +46,8 @@ _cuts:
 
 BMN:
   event-variables:
-    - event_header/centrality
-  axes: [ *centrality ]
+    - event_header/b_norm
+  axes: [ *b_norm ]
   q-vectors:
   # SIM PARTICLES
   - name: proton

@@ -49,10 +49,10 @@ void Converter::Run() {
               /* 90-100% */ 0,
       };
     }
-    nucleus_radius_ = 1.2 * pow( 197, 1.0/3.0 );
+    nucleus_radius_ = 1.0 * pow( 197, 1.0/3.0 );
   } else if( colliding_system_ == "Xe+Cs" ){
     b_edges_ = { 0, 3.608, 5.248, 6.56, 7.708, 8.692, 9.512, 10.332, 11.152, 12.3, 16.4 };
-    nucleus_radius_ = 1.2 * pow( 131, 1.0/3.0 );
+    nucleus_radius_ = 1.0 * pow( 131, 1.0/3.0 );
   } else if( colliding_system_ == "Ag+Ag" ){
     b_edges_ = {  0, 3.12, 4.55, 5.59, 6.5, 7.28, 8.06, 8.71, 9.36, 10.14, 13  };
 
@@ -94,7 +94,7 @@ void Converter::Run() {
               /* 90-100% */ 0,
       };
     }
-    nucleus_radius_ = 1.2 * pow( 108, 1.0/3.0 );
+    nucleus_radius_ = 1.0 * pow( 108, 1.0/3.0 );
   }
 
   int n_events=0;
