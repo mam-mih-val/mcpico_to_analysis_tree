@@ -31,7 +31,7 @@ _axes:
     name: event_header_b_norm
     nb: 20
     lo: 0.0
-    hi: 12.5
+    hi: 2.0
 
 _components:
   - &sp1_components [ x1,y1 ]
