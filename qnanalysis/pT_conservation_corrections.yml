@@ -24,12 +24,12 @@ _cuts:
     particles/pid : { equals: -211 }
   - &silicon-proton
     particles/pid : { equals: 2212 }
-    particles/y_cm : { range: [-0.6, 0.6] }
+    particles/y_cm : { range: [-0.5, 0.5] }
     particles/pT : { range: [0.4, 2.0] }
   - &silicon-pi-neg
     particles/pid : { equals: -211 }
-    particles/y_cm : { range: [-0.6, 0.6] }
-    particles/pT : { range: [0.3, 1.0] }
+    particles/y_cm : { range: [-0.8, 0.8] }
+    particles/pT : { range: [0.2, 1.0] }
   - &mc-fhcal-1-cuts
     particles/eta : { range: [3.8, 5.4] }
   - &mc-fhcal-2-cuts
@@ -62,18 +62,18 @@ BMN:
       - *ax-sim-pions-pT
     cuts: *good-sim-pi-neg
 
-#  - name: Tp
-#    type: track
-#    phi:  particles/phi
-#    weight: Ones
-#    norm: m
-#    cuts: *silicon-proton
-#  - name: Tpi
-#    type: track
-#    phi:  particles/phi
-#    weight: Ones
-#    norm: m
-#    cuts: *silicon-pi-neg
+  - name: Tp
+    type: track
+    phi:  particles/phi
+    weight: Ones
+    norm: m
+    cuts: *silicon-proton
+  - name: Tpi
+    type: track
+    phi:  particles/phi
+    weight: Ones
+    norm: m
+    cuts: *silicon-pi-neg
 
   - name: F1
     type: track

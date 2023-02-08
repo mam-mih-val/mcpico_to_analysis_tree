@@ -116,14 +116,14 @@ _tasks:
 # v1 observables
 # *******************************************
 
-# ----- v1 true relative to the true RP -----
+  # ----- v1 true relative to the true RP -----
   - args: [*ta_u1, *ta_psi1]
     n-samples: 100
     weights-type: observable
     folder: "/SP/TrueRP/u1Psi1"
     axes: [ *b_norm ]
 
-# ----- v2 true relative to the true RP -----
+  # ----- v2 true relative to the true RP -----
   - args: [*ta_u2, *ta_psi2]
     n-samples: 100
     weights-type: observable
@@ -133,27 +133,34 @@ _tasks:
 ## *******************************************
 ## FHCal
 ## *******************************************
-#
-## ----- < u, T{p, pi}, F > -----
-#  - args: [*ta_u1, *ta_t2, *ta_fhcal]
-#    n-samples: 100
-#    weights-type: observable
-#    folder: "/SP/FHCal/u1Q2Q1"
-#    axes: [ *b_norm ]
-#
-## ----- < F{1,2,3}, F{1,2,3} > -----
-#  - args: [*ta_fhcal, *ta_fhcal]
-#    n-samples: 100
-#    weights-type: reference
-#    folder: "/SP/FHCal/Q1Q1"
-#    axes: [ *b_norm ]
-#
+
+  # ----- v1 true relative to the FHCal Plane -----
+  - args: [*ta_u1, *ta_fhcal]
+    n-samples: 100
+    weights-type: observable
+    folder: "/SP/FHCal/u1Q1"
+    axes: [ *b_norm ]
+
+  # ----- < u, T{p, pi}, F > -----
+  - args: [*ta_u1, *ta_t2, *ta_fhcal]
+    n-samples: 100
+    weights-type: observable
+    folder: "/SP/FHCal/u1Q2Q1"
+    axes: [ *b_norm ]
+
+  # ----- < F, F > -----
+  - args: [*ta_fhcal, *ta_psi1]
+    n-samples: 100
+    weights-type: observable
+    folder: "/SP/FHCal/Q1Psi1"
+    axes: [ *b_norm ]
+
 ## *******************************************
 ## Track
 ## *******************************************
-#
-#  - args: [*ta_t2, *ta_psi2]
-#    n-samples: 100
-#    weights-type: reference
-#    folder: "/SP/Track/Q2Psi2"
-#    axes: [ *b_norm ]
+
+  - args: [*ta_t2, *ta_psi2]
+    n-samples: 100
+    weights-type: reference
+    folder: "/SP/Track/Q2Psi2"
+    axes: [ *b_norm ]
