@@ -31,11 +31,14 @@ _cuts:
     particles/y_cm : { range: [-0.8, 0.8] }
     particles/pT : { range: [0.2, 1.0] }
   - &mc-fhcal-1-cuts
-    particles/eta : { range: [4.4, 5.5] }
+    particles/eta : { range: [3.8, 5.4] }
+    particles/y_cm : { range: [0.4, 3.0] }
   - &mc-fhcal-2-cuts
-    particles/eta : { range: [3.9, 4.4] }
+    particles/eta : { range: [3.3, 3.8] }
+    particles/y_cm : { range: [0.4, 3.0] }
   - &mc-fhcal-3-cuts
-    particles/eta : { range: [3.1, 3.9] }
+    particles/eta : { range: [2.7, 3.3] }
+    particles/y_cm : { range: [0.4, 3.0] }
 
 BMN:
   event-variables:
