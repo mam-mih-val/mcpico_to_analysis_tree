@@ -25,6 +25,7 @@ OutTreeManager::OutTreeManager(const std::string &out_file_name,
   particles_config_.AddField<float>("y_cm", "Rapidity in center-of-mass system");
   particles_config_.AddField<float>("Ekin", "Kinetic energy of a particle");
   particles_config_.AddField<int>("type", "0 is for produced and +/- 1 for spectators");
+  particles_config_.AddField<int>("abs_pid", "Absolute PID value");
   configuration_.AddBranchConfig(particles_config_);
   particles_ = new AnalysisTree::Particles( particles_config_.GetId() );;
 

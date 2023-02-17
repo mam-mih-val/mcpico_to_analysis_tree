@@ -23,6 +23,7 @@ void Converter::Run() {
   auto y_cm_id = out_particles_config.GetFieldId("y_cm");
   auto Ekin_id = out_particles_config.GetFieldId("Ekin");
   auto type_id = out_particles_config.GetFieldId("type");
+  auto abs_pid_id = out_particles_config.GetFieldId("abs_pid");
 
   std::random_device dev;
   std::mt19937 rng(dev());
@@ -155,6 +156,7 @@ void Converter::Run() {
       particle.SetField(static_cast<float>(y_cm), y_cm_id);
       particle.SetField(static_cast<float>(Ekin), Ekin_id);
       particle.SetField(static_cast<int>(type), type_id);
+      particle.SetField(static_cast<int>(abs(pid)), abs_pid_id);
 
       if(  eta < 0.1 )
         continue;

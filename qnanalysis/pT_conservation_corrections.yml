@@ -27,18 +27,18 @@ _cuts:
     particles/y_cm : { range: [-0.5, 0.5] }
     particles/pT : { range: [0.4, 2.0] }
   - &silicon-pi-neg
-    particles/pid : { equals: -211 }
+    particles/abs_pid : { equals: 211 }
     particles/y_cm : { range: [-0.8, 0.8] }
     particles/pT : { range: [0.2, 1.0] }
   - &mc-fhcal-1-cuts
     particles/eta : { range: [3.8, 5.4] }
-    particles/y_cm : { range: [0.4, 3.0] }
+    particles/y_cm : { range: [0.0, 3.0] }
   - &mc-fhcal-2-cuts
     particles/eta : { range: [3.3, 3.8] }
-    particles/y_cm : { range: [0.4, 3.0] }
+    particles/y_cm : { range: [0.0, 3.0] }
   - &mc-fhcal-3-cuts
     particles/eta : { range: [2.7, 3.3] }
-    particles/y_cm : { range: [0.4, 3.0] }
+    particles/y_cm : { range: [0.0, 3.0] }
 
 BMN:
   event-variables:
