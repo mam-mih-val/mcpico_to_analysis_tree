@@ -28,8 +28,11 @@ _cuts:
     particles/pT : { range: [0.4, 2.0] }
   - &silicon-pi-neg
     particles/abs_pid : { equals: 211 }
-    particles/y_cm : { range: [-0.8, 0.8] }
+    particles/y_cm : { range: [-0.4, 0.4] }
     particles/pT : { range: [0.2, 1.0] }
+  - &mc-fhcal-cuts
+    particles/eta : { range: [2.7, 5.4] }
+    particles/y_cm : { range: [0.0, 3.0] }
   - &mc-fhcal-1-cuts
     particles/eta : { range: [3.8, 5.4] }
     particles/y_cm : { range: [0.0, 3.0] }
@@ -45,7 +48,7 @@ BMN:
     - event_header/b_norm
   axes: [ *b_norm ]
   q-vectors:
-  # SIM PARTICLES
+  # U-VECTORS
   - name: proton
     type: track
     phi:  particles/phi
@@ -64,7 +67,7 @@ BMN:
       - *ax-sim-y
       - *ax-sim-pions-pT
     cuts: *good-sim-pi-neg
-
+  # Q-VECTORS in tracking acceptance
   - name: Tp
     type: track
     phi:  particles/phi
@@ -77,25 +80,32 @@ BMN:
     weight: Ones
     norm: m
     cuts: *silicon-pi-neg
+  # Q-VECTORS in FHCal/FW acceptance
+  - name: F
+    type: track
+    phi: particles/phi
+    weight: particles/Ekin
+    norm: m
+    cuts: *mc-fhcal-cuts
 
-  - name: F1
-    type: track
-    phi: particles/phi
-    weight: particles/Ekin
-    norm: m
-    cuts: *mc-fhcal-1-cuts
-  - name: F2
-    type: track
-    phi: particles/phi
-    weight: particles/Ekin
-    norm: m
-    cuts: *mc-fhcal-2-cuts
-  - name: F3
-    type: track
-    phi: particles/phi
-    weight: particles/Ekin
-    norm: m
-    cuts: *mc-fhcal-3-cuts
+#  - name: F1
+#    type: track
+#    phi: particles/phi
+#    weight: particles/Ekin
+#    norm: m
+#    cuts: *mc-fhcal-1-cuts
+#  - name: F2
+#    type: track
+#    phi: particles/phi
+#    weight: particles/Ekin
+#    norm: m
+#    cuts: *mc-fhcal-2-cuts
+#  - name: F3
+#    type: track
+#    phi: particles/phi
+#    weight: particles/Ekin
+#    norm: m
+#    cuts: *mc-fhcal-3-cuts
 
 
   # REFERENCE PSI RP
