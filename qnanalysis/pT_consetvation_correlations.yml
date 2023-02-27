@@ -54,6 +54,11 @@ _tasks_args:
     query-list: *detectors
     components: *sp2_components
     correction-steps: [ plain ]
+  - &ta_u3
+    query: { tags: { any-in: [ sim_un_vector ] } }
+    query-list: *detectors
+    components: *sp3_components
+    correction-steps: [ plain ]
   - &ta_t2
     query: { tags: { any-in: [ track_vector ] } }
     query-list: *detectors
@@ -118,6 +123,11 @@ _tasks_args:
     query-list: *detectors
     components: *sp2_components
     correction-steps: [ plain ]
+  - &ta_psi3
+    query: { tags: { any-in: [ psi_vector ] } }
+    query-list: *detectors
+    components: *sp3_components
+    correction-steps: [ plain ]
 
 _tasks:
 # *******************************************
@@ -136,6 +146,13 @@ _tasks:
     n-samples: 100
     weights-type: observable
     folder: "/SP/TrueRP/u2Psi2"
+    axes: [ *b_norm ]
+
+  # ----- v3 true relative to the true RP -----
+  - args: [*ta_u3, *ta_psi3]
+    n-samples: 100
+    weights-type: observable
+    folder: "/SP/TrueRP/u3Psi3"
     axes: [ *b_norm ]
 
 ## *******************************************

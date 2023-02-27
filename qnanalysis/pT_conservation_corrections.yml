@@ -14,7 +14,7 @@ _axes:
 
   - &ax-sim-protons-pT {name: particles/pT, nb: 20, lo: 0.0, hi: 2.0}
   - &ax-sim-pions-pT {name: particles/pT, nb: 20, lo: 0.0, hi: 1.}
-  - &ax-sim-y {name: particles/y_cm, nb: 15, lo: -0.75, hi: 0.75}
+  - &ax-sim-y {name: particles/y_cm, nb: 21, lo: -1.05, hi: 1.05}
 
 
 _cuts:
@@ -55,6 +55,7 @@ BMN:
     phi:  particles/phi
     weight: Ones
     norm: m
+    harmonics: 111
     axes:
       - *ax-sim-y
       - *ax-sim-protons-pT
@@ -62,6 +63,7 @@ BMN:
   - name: pi_neg
     type: track
     phi:  particles/phi
+    harmonics: 111
     weight: Ones
     norm: m
     axes:
@@ -74,12 +76,14 @@ BMN:
     phi:  particles/phi
     weight: Ones
     norm: m
+    harmonics: 111
     cuts: *silicon-proton
   - name: Tpi
     type: track
     phi:  particles/phi
     weight: Ones
     norm: m
+    harmonics: 111
     cuts: *silicon-pi-neg
   # Q-VECTORS in FHCal/FW acceptance
   - name: F
@@ -115,3 +119,4 @@ BMN:
     phi: event_header/psi_rp
     weight: Ones
     norm: mag
+    harmonics: 111
