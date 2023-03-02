@@ -28,7 +28,7 @@ _cuts:
     particles/pT : { range: [0.4, 2.0] }
   - &silicon-pi-neg
     particles/abs_pid : { equals: 211 }
-    particles/y_cm : { range: [-1.0, 0.0] }
+    particles/y_cm : { range: [-0.8, 0.8] }
     particles/pT : { range: [0.3, 1.0] }
   - &mc-fhcal-cuts
     particles/eta : { range: [2.7, 5.4] }
@@ -86,31 +86,31 @@ BMN:
     harmonics: 111
     cuts: *silicon-pi-neg
   # Q-VECTORS in FHCal/FW acceptance
-  - name: F
+#  - name: F
+#    type: track
+#    phi: particles/phi
+#    weight: particles/Ekin
+#    norm: m
+#    cuts: *mc-fhcal-cuts
+
+  - name: F1
     type: track
     phi: particles/phi
     weight: particles/Ekin
     norm: m
-    cuts: *mc-fhcal-cuts
-
-#  - name: F1
-#    type: track
-#    phi: particles/phi
-#    weight: particles/Ekin
-#    norm: m
-#    cuts: *mc-fhcal-1-cuts
-#  - name: F2
-#    type: track
-#    phi: particles/phi
-#    weight: particles/Ekin
-#    norm: m
-#    cuts: *mc-fhcal-2-cuts
-#  - name: F3
-#    type: track
-#    phi: particles/phi
-#    weight: particles/Ekin
-#    norm: m
-#    cuts: *mc-fhcal-3-cuts
+    cuts: *mc-fhcal-1-cuts
+  - name: F2
+    type: track
+    phi: particles/phi
+    weight: particles/Ekin
+    norm: m
+    cuts: *mc-fhcal-2-cuts
+  - name: F3
+    type: track
+    phi: particles/phi
+    weight: particles/Ekin
+    norm: m
+    cuts: *mc-fhcal-3-cuts
 
 
   # REFERENCE PSI RP
