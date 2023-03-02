@@ -33,7 +33,7 @@ _cuts:
   - &mc-fhcal-cuts
     particles/eta : { range: [2.7, 5.4] }
     particles/y_cm : { range: [0.0, 3.0] }
-    particles/pid : { equals: 2112 }
+#    particles/pid : { equals: 2112 }
   - &mc-fhcal-1-cuts
     particles/eta : { range: [3.8, 5.4] }
     particles/y_cm : { range: [0.0, 3.0] }

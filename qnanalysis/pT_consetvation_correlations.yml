@@ -183,24 +183,11 @@ _tasks:
     folder: "/SP/FHCal/u1Q2Q1"
     axes: [ *b_norm ]
 
-  # ----- < u, T{p, pi}, F > -----
-  - args: [*ta_u1, *ta_t3, *ta_fhcal2]
-    n-samples: 100
-    weights-type: observable
-    folder: "/SP/FHCal/u1Q3Q2"
-    axes: [ *b_norm ]
-
   # ----- < F, F > -----
   - args: [*ta_fhcal, *ta_psi1]
     n-samples: 100
     weights-type: observable
     folder: "/SP/FHCal/Q1Psi1"
-    axes: [ *b_norm ]
-
-  - args: [*ta_fhcal2, *ta_psi2]
-    n-samples: 100
-    weights-type: observable
-    folder: "/SP/FHCal/Q2Psi2"
     axes: [ *b_norm ]
 
 ## *******************************************
@@ -211,9 +198,4 @@ _tasks:
     n-samples: 100
     weights-type: reference
     folder: "/SP/Track/Q2Psi2"
-    axes: [ *b_norm ]
-  - args: [*ta_t3, *ta_psi3]
-    n-samples: 100
-    weights-type: reference
-    folder: "/SP/Track/Q3Psi3"
     axes: [ *b_norm ]
