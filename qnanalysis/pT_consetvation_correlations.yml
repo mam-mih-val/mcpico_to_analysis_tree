@@ -176,10 +176,10 @@ _tasks:
     folder: "/SP/FHCal/u1Q1"
     axes: [ *b_norm ]
 
-  - args: [*ta_u1, *ta_fhcal, *ta_fhcal2]
+  - args: [*ta_u1, *ta_f1, *ta_f2, *ta_f3]
     n-samples: 100
     weights-type: observable
-    folder: "/SP/FHCal/u1Q1Q2"
+    folder: "/SP/FHCal/u1Q1Q1Q1"
     axes: [ *b_norm ]
 
   # ----- < F, F > -----

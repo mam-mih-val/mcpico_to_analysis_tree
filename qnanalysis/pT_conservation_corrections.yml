@@ -28,7 +28,7 @@ _cuts:
     particles/pT : { range: [0.4, 2.0] }
   - &silicon-pi-neg
     particles/abs_pid : { equals: 211 }
-    particles/y_cm : { range: [-0.8, 0.8] }
+    particles/y_cm : { range: [0.0, 0.8] }
     particles/pT : { range: [0.3, 1.0] }
   - &mc-fhcal-cuts
     particles/eta : { range: [2.7, 5.4] }
