@@ -169,14 +169,15 @@ void Converter::Run() {
 
     auto centrality = -1.0f;
     int idx = 0;
-    float bin_edge = mult_edges_[idx];
-    while( multiplicity < bin_edge &&
-           idx < mult_edges_.size()-1 ){
-      idx++;
-      bin_edge = mult_edges_[idx];
+    if( mult_edges_.empty() ) {
+      float bin_edge = mult_edges_[idx];
+      while (multiplicity < bin_edge &&
+             idx < mult_edges_.size() - 1) {
+        idx++;
+        bin_edge = mult_edges_[idx];
+      }
+      centrality = (centrality_percentage_[idx - 1] + centrality_percentage_[idx]) / 2.0f;
     }
-    centrality = ( centrality_percentage_[idx-1] + centrality_percentage_[idx] ) / 2.0f;
-
     out_event_header->SetField( multiplicity, M_id);
     out_event_header->SetField( centrality, centrality_id );
 
