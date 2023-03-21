@@ -169,7 +169,7 @@ void Converter::Run() {
 
     auto centrality = -1.0f;
     int idx = 0;
-    if( mult_edges_.empty() ) {
+    if( !mult_edges_.empty() ) {
       float bin_edge = mult_edges_[idx];
       while (multiplicity < bin_edge &&
              idx < mult_edges_.size() - 1) {
